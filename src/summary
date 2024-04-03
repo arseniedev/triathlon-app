@@ -1,0 +1,39 @@
+main
+
+<<NO JEST TEST>>
+triathlon_simplified
+----functional MVC + html
+
+
+triathlon_non_oop
+----
+
+
+triathlon_app
+----
+
+
+<<JEST TEST>>
+
+[curent]
+triathlon_indexDb
+----failures
+----storage?
+
+triathlon_no_db
+----100% TEST
+----failed local Storage
+
+triathlon_1.0
+----functional loading storage
+----issues:test
+
+triathlon_1.1
+----compare main: no formatDate() & formatTime()
+----same drill, storage, & training test
+----issues:test
+
+triathlon_1.2
+?
+
+
