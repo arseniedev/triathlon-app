@@ -55,4 +55,6 @@ triathlon_1.1
 ----issues:test
 
 triathlon_1.2
-?
+----athlete test & class only, functionality unverfied
+----training test & class, functional
+----training LOCALSTORAGE test pass
