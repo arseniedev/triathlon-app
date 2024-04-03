@@ -1,4 +1,4 @@
-/* eslint-env es6 */
+/* triathlon 1.1 */
 /* eslint quotes: ["error", "single"] */
 /* eslint semi: ["error", "never"] */
 /* globals */
@@ -10,58 +10,29 @@ export default class TrainingDrill {
 	// distanceKm = 26.55 //km
 	// targetSpeed = 37.16 //kph
 	// YYYY - M+1 - D1
-	constructor(newTimeStamp, newSwimmingDuration = 0.0, newRunningDuration = 0.0, newCyclingDuration = 0.0) {
-		this.dateTime = newTimeStamp
-		this.date = newTimeStamp
+	constructor(newDateTime = new Date(2024,3,5,0,0), newSwimmingDuration = 0.0, newRunningDuration = 0.0, newCyclingDuration = 0.0) {
+		this.dateTimeId = newDateTime
+		this.date = undefined
+		this.time = undefined
 		this.swimTime = newSwimmingDuration
 		this.runTime = newRunningDuration
 		this.bikeTime = newCyclingDuration
 	}
-
+	
 	toString() {
-		this.formatDate()
-		this.formatTime()
+		this.formatDateTime()
 		let result
-		result = `[Date: ${this.date} Drill Start Time: ${this.time}]\n`
+		result = `\n[Date: ${this.date} Drill Start Time: ${this.time}]\n`
 		result += `Swimming - ${this.swimTime.toFixed(2)} seconds\n`
 		result += `Running - ${this.runTime.toFixed(2)} seconds\n`
 		result += `Cycling - ${this.bikeTime.toFixed(2)} seconds`
 		return result
 	}
 
-	// Converting duration seconds into hours
-	calculateTotalDuration() {
-		const durationHr = (this.swimTime + this.runTime + this.bikeTime) / 3600
-		return durationHr
-	}
-
-	// Calculate speed to kph
-	calculateSpeed() {
-		const distanceKm = 26.55
-		const durationHr = this.calculateTotalDuration()
-		return parseFloat((distanceKm / durationHr).toFixed(2))
-	}
-
-	isGoalReached() {
-		const targetSpeed = 37.16
-		return this.calculateSpeed() >= targetSpeed
-	}
-
-	formatTime() {
-		let time = this.time
-		if (time !== undefined){
-			let hours = time.getHours().toString().padStart(2, '0')
-			let minutes = time.getMinutes().toString().padStart(2, '0')
-			this.time = `${hours}:${minutes}`
-		}
-		return this.time
-		// let dateTime = this.time
-	}
-
-	formatDate() {
-		let date = this.date
-		if (date !== undefined){
-			const months = [
+	formatDateTime() {
+		let dateTimedict = {} 
+		const dateTime = this.dateTimeId
+		const months = [
 			'January',
 			'February',
 			'March',
@@ -75,8 +46,32 @@ export default class TrainingDrill {
 			'November',
 			'December',
 		];
-		this.date = `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-		}
-		return this.date
+		let hours = dateTime.getHours().toString().padStart(2, '0')
+		let minutes = dateTime.getMinutes().toString().padStart(2, '0')
+		
+		this.date = `${months[dateTime.getMonth()]} ${dateTime.getDate()}, ${dateTime.getFullYear()}`;
+		this.time = `${hours}:${minutes}`
+
+		dateTimedict['date'] = this.date
+		dateTimedict['time'] = this.time
+
+		return dateTimedict
+	}
+
+	// Converting duration seconds into hours
+	calculateTotalDuration() {
+		const durationHr = (this.swimTime + this.runTime + this.bikeTime) / 3600
+		return durationHr
+	}
+
+	// Calculate speed to kph
+	calculateSpeed(distanceKm) {
+		const durationHr = this.calculateTotalDuration()
+		return parseFloat((distanceKm / durationHr).toFixed(2))
+	}
+
+	isGoalReached(distanceKm,targetSpeed) {
+		// const targetSpeed = 37.16
+		return this.calculateSpeed(distanceKm) >= targetSpeed
 	}
 }
