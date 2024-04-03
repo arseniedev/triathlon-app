@@ -1,9 +1,10 @@
-import Storage from './storage';
+/* triathlon 1.0 */
+/* getGoalReach(); */
 import TrainingDrill from './drill';
 
 export default class Training {
-	constructor(newId, newLocation = "Unknown") {
-		this.id = newId;
+	constructor(newDate = new Date(), newLocation = "Unknown") {
+		this.date = newDate;
 		this.location = newLocation;
 		this.targetDuration = 360; // Seconds //? constant value
 		this.drillCount = 0; // ? increasing value
@@ -66,16 +67,11 @@ export default class Training {
 
 	getGoalReach() {
 		this.sortDrills();
-		let passedDrills
-		// let passedDrills = []
-		// let passedDrills = {}
+		let passedDrills = {}
 		for (const aDrill of this.allDrillsLog) {
 			if (aDrill.isGoalReached()) {
-				passedDrills += `\n${aDrill}`
-				// let aKey = aDrill.formatTime()
-				// passedDrills[aKey] = aDrill.calculateSpeed() + "kph"
+				passedDrills["Time: " + aDrill.time] = aDrill.calculateSpeed() + "kph"
 			}
-			// passedDrills./push(aDrill) 
 		}
 		return passedDrills;
 	}
@@ -84,8 +80,8 @@ export default class Training {
 		this.sortDrills();
 		let foundDrill = null;
 		for (const aDrill of this.allDrillsLog) {
-			if (aDrill.formatTime() === targetDrillStartTime) {
-				foundDrill = aDrill
+			if (aDrill.time === targetDrillStartTime) {
+				foundDrill = aDrill;
 				break;
 			}
 		}
