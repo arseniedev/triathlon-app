@@ -1,20 +1,27 @@
 // <<CONTROLLER>>
 class Controller {
     static setup() {
-        // firstName,lastName,dateOfBirth,height,nationality,triathlonCategory,targetFinishTime
-    let theTraining = new TriathlonDrill(new Date("24 Jan 2024"), "Everdeen Halls")
+    let theAthlete = new Athlete()
+    // function main() {
+        //     let athlete
+        //     athlete = new Athlete()
+        //  ---
+        //     View.clr()
+        //     View.out(athlete)
+        // }
+        // constructor(newDate, newTime, newFinisherTime, newLocation)
+        theAthlete.addTrainingSession("12/01/2024", "08:45", 45.0, "Green Hills")
+        theAthlete.addTrainingSession("10/02/2024", "06:15", 65.3, "Everdeen Hall")
+        theAthlete.addTrainingSession("24/02/2023", "15:32", 32.12, "Maxwells's Hall")
 
-        //TODO if category !== 3, remove it, has to be a triathlon
+        // let theTraining = theAthlete.trainingLogDate("12/01/2024")
+        // newSportName, newDuration, 
+        // newDistanceTravelled, newTimePercentage
 
-        //!functional, but dependent on the existence of the date. Requires a condition to return a message.
-        // newDuration, newName, newDistance, theTrainingSession
-        theTraining.addSportComponent(42,"Swimming", 0.75)
-        theTraining.addSportComponent(64,"Cycling", 20.0)
-        theTraining.addSportComponent(2, "Running", 5.0)
+        // theTraining.addCyclingLog(123)
+        // theTraining.addCyclingLog(332)
+        // theTraining.addCyclingLog(355)
 
-        //TODO if name is empty, remove it
-        // theTraining.removeComponentLog("Running")
-
-        return theTraining
+        return theAthlete
     }
 }
