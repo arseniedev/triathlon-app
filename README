@@ -28,11 +28,6 @@ This athlete has 6 logged trainings:
 ----true or false test + duration
 
 
-
-triathlon_non_oop
-----
-
-
 <<JEST TEST>>
 
 [curent]
@@ -40,9 +35,15 @@ triathlon_indexDb
 ----failures
 ----storage?
 
+[MOST STABLE]
 triathlon_no_db
 ----100% TEST
 ----failed local Storage
+
+[STORAGE]
+triathlon_non_oop
+----storage & storage.test module
+----has to replace the triathlon_no_db to check storage functionality
 
 triathlon_1.0
 ----functional loading storage
