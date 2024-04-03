@@ -1,17 +1,19 @@
+/* triathlon 1.1 */
+
 import Storage from './storage';
 import TrainingDrill from './drill';
 
 export default class Training {
-	constructor(newId, newLocation = "Unknown") {
-		this.id = newId;
+	constructor(newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
 		this.location = newLocation;
-		this.targetDuration = 360; // Seconds //? constant value
+		this.distance = kmDistanceRequirement
+		this.speed = targetSpeed
 		this.drillCount = 0; // ? increasing value
 		this.allDrillsLog = [];
 	}
 
-	addDrill(newTimeStamp, newSwimmingDuration, newRunningDuration, newCyclingDuration) {
-		const newDrill = new TrainingDrill(newTimeStamp, newSwimmingDuration, newRunningDuration, newCyclingDuration);
+	addDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration) {
+		const newDrill = new TrainingDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration);
 		this.drillCount += 1;
 		this.allDrillsLog.push(newDrill);
 		// Storage.saveDrillToStorage(newDrill)
@@ -44,38 +46,33 @@ export default class Training {
 		});
 	}
 
-	formatDate() {
-		const d = this.date;
-		const months = [
-			'January',
-			'February',
-			'March',
-			'April',
-			'May',
-			'June',
-			'July',
-			'August',
-			'September',
-			'October',
-			'November',
-			'December',
-		];
-		const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-		return result;
-	}
+	// formatDate() {
+	// 	const d = this.date;
+	// 	const months = [
+	// 		'January',
+	// 		'February',
+	// 		'March',
+	// 		'April',
+	// 		'May',
+	// 		'June',
+	// 		'July',
+	// 		'August',
+	// 		'September',
+	// 		'October',
+	// 		'November',
+	// 		'December',
+	// 	];
+	// 	const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+	// 	return result;
+	// }
 
 	getGoalReach() {
 		this.sortDrills();
-		let passedDrills
-		// let passedDrills = []
-		// let passedDrills = {}
+		let passedDrills = {}
 		for (const aDrill of this.allDrillsLog) {
 			if (aDrill.isGoalReached()) {
-				passedDrills += `\n${aDrill}`
-				// let aKey = aDrill.formatTime()
-				// passedDrills[aKey] = aDrill.calculateSpeed() + "kph"
+				passedDrills["Time: " + aDrill.time] = aDrill.calculateSpeed() + "kph"
 			}
-			// passedDrills./push(aDrill) 
 		}
 		return passedDrills;
 	}
@@ -84,8 +81,8 @@ export default class Training {
 		this.sortDrills();
 		let foundDrill = null;
 		for (const aDrill of this.allDrillsLog) {
-			if (aDrill.formatTime() === targetDrillStartTime) {
-				foundDrill = aDrill
+			if (aDrill.time === targetDrillStartTime) {
+				foundDrill = aDrill;
 				break;
 			}
 		}
@@ -103,14 +100,20 @@ export default class Training {
 		}
 		return result;
 	}
+//!
+	// calculateAvgSpeed() { // Kph //by dates
+	// 	let cumulativeSpeed = 0;
+	// 	for (const aDrill of this.allDrillsLog) {
+	// 		cumulativeSpeed += aDrill.calculateSpeed();
+	// 	}
+	// 	return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
+	// }
 
-	calculateAvgSpeed() { // Kph
-		let cumulativeSpeed = 0;
-		for (const aDrill of this.allDrillsLog) {
-			cumulativeSpeed += aDrill.calculateSpeed();
-		}
-		return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
-	}
+//!
+	// isGoalReached() {
+	// 	// const targetSpeed = 37.16
+	// 	return this.calculateSpeed() >= this.targetSpeed
+	// }
 
 	updateDrill(startTime, keyItem, valueReplacement) {
 		const aDrill = this.findTrainingDrill(startTime);
