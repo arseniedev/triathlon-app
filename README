@@ -16,11 +16,20 @@ This athlete has 3 logged trainings:
 ----plan to separate sports component
 ----functional MVC, only showed training & athlete
 
+triathlon_simplified_1.2
+This athlete has 6 logged trainings:
+     [false] Fri Feb 02 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Everdeen Hall]     
+     [false] Fri Feb 23 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Green Hills]     
+     [false] Fri Jan 05 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Everdeen Hall]     
+     [true] Mon Jan 22 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 216.00 minutes [Heavensbee Gymnasium]     
+     [true] Sun Dec 31 2023 00:00:00 GMT+1300 (New Zealand Daylight Time) - 140.00 minutes [Larcroft]     
+     [false] Tue Dec 10 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Maxwell's Hall]     
+----functional MVC + html
+----true or false test + duration
+
+
+
 triathlon_non_oop
-----non
-
-
-triathlon_app
 ----
 
 
