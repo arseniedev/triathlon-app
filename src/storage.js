@@ -32,13 +32,3 @@ export default class Storage {
 		return allItems;
 	}
 }
-// Window.loadLocalStorage = loadLocalStorage
-
-// discardChanges(startTime) {
-//     let isPresent = this.findTrainingDrill(startTime) !== null
-//     let changeStatus = "Changes discarded"
-//     if (isPresent) {
-//         changeStatus = "Modifiable"
-//     }
-//     return changeStatus
-// }
