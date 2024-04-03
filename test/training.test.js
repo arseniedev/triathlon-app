@@ -1,3 +1,4 @@
+/* triathlon 1.1 */
 /* eslint linebreak-style: ["error", "unix"] */
 // /*** @jest-environment jsdom */
 
@@ -6,8 +7,6 @@ import TrainingDrill from '../src/drill'; // Part
 
 describe('Training logs', () => {
 	let theTraining;
-	let testDateTime
-	let testLocation
 
 	beforeEach(() => {
 		theTraining = new Training();
@@ -43,16 +42,16 @@ describe('Training logs', () => {
 
 	describe('an empty training', () => {
 		beforeEach(() => {
-			testLocation = 'Everdeen Sport Centre';
-			testDateTime = new Date(2024,2,17,13,11);
-			theTraining = new Training(testDateTime, testLocation);
+			const testDate = new Date('March 17, 2024');
+			const testLocation = 'Everdeen Sport Centre';
+			theTraining = new Training(testDate, testLocation);
 		});
 
-		// test('should match expected date format', () => { // Check if formatDate is functional
-		// 	const expected = 'March 17, 2024';
-		// 	const actual = theTraining.formatDate();
-		// 	expect(actual).toBe(expected);
-		// });
+		test('should match expected date format', () => { // Check if formatDate is functional
+			const expected = 'March 17, 2024';
+			const actual = theTraining.formatDate(); // "March 17, 2024"
+			expect(actual).toBe(expected);
+		});
 
 		test('should have 0 log count', () => { // Check if formatDate is functional
 			const expected = 0;
@@ -68,7 +67,7 @@ describe('Training logs', () => {
 	});
 	describe('a training with 1 drill in it', () => {
 		beforeEach(() => {
-			theTraining.addDrill(testDateTime, 33, 76, 234);
+			theTraining.addDrill('12:30', 33, 76, 234);
 		});
 
 		test('should have a log count of 1', () => {
@@ -85,17 +84,31 @@ describe('Training logs', () => {
 			const aTrainingDrill = theTraining.allDrillsLog[0];
 			expect(aTrainingDrill instanceof TrainingDrill).toBeTruthy();
 		});
+
+		describe('a training drill #12, has a correct duration for swimming(33), running(76), and cycling(234)', () => {
+			let aTrainingDrill;
+
+			beforeAll(() => {
+				aTrainingDrill = theTraining.allDrillsLog[0];
+			});
+
+			test('should contain correct swimTime, runTime, & bikeTime values', () => {
+				expect(aTrainingDrill.swimTime).toBe(33);
+				expect(aTrainingDrill.runTime).toBe(76);
+				expect(aTrainingDrill.bikeTime).toBe(234);
+			});
+		});
 	});
 
 	describe('a training with 3 drills in it', () => {
 		beforeEach(() => {
-			theTraining.addDrill(new Date (2024,3,27,19,10), 35.722, 339.5, 4760.31); // Fail  )
-			theTraining.addDrill(new Date (2024,3,27,8,30), 21.56, 236.17, 2154.4); // Pass pass pass)
-			theTraining.addDrill(new Date (2024,3,27,8,30), 45.9, 593.5, 2120.2); // Fail fail pass = fail)
-			theTraining.addDrill(new Date (2024,3,27,12,2), 22.112, 271.97, 2140.6); // Pass fail pass = pass)
+			theTraining.addDrill('19:10', 35.722, 339.5, 4760.31); // Fail  )
+			theTraining.addDrill('08:30', 21.56, 236.17, 2154.4); // Pass pass pass)
+			theTraining.addDrill('08:30', 45.9, 593.5, 2120.2); // Fail fail pass = fail)
+			theTraining.addDrill('12:02', 22.112, 271.97, 2140.6); // Pass fail pass = pass)
 		});
 
-		test('should have a log count of 4', () => {
+		test('should have a log count of 3', () => {
 			const count = theTraining.drillCount;
 			expect(count).toBe(4);
 		});
@@ -121,24 +134,20 @@ describe('Training logs', () => {
 
 	describe('a training with filters and search', () => {
 		beforeEach(() => {
-			let theTraining = new Training(new Date("March 17, 2024 04:30:00"))
-			theTraining.addDrill(new Date("March 17, 2024 19:10:00"), 35.722, 339.5, 4760.31); // Fail
-			theTraining.addDrill(new Date("March 17, 2024 08:30:00"), 21.56, 236.17, 2154.4); // Pass pass pass
-			theTraining.addDrill(new Date("March 17, 2024 15:15:00"), 45.9, 593.5, 2120.2); // Fail fail pass = fail
-			theTraining.addDrill(new Date("March 17, 2024 12:2:00"), 22.112, 271.97, 2140.6); // Pass fail pass = pass
+			theTraining.addDrill('19:10', 35.722, 339.5, 4760.31); // Fail
+			theTraining.addDrill('15:15', 21.56, 236.17, 2154.4); // Pass pass pass
+			theTraining.addDrill('08:30', 45.9, 593.5, 2120.2); // Fail fail pass = fail
+			theTraining.addDrill('12:02', 22.112, 271.97, 2140.6); // Pass fail pass = pass
 		});
 
 		test('should filter only speed above 37.16', () => { // 37.16
-			const actual = theTraining.getGoalReach();;
-			const expected =  {"Time: 08:30": "39.62kph", "Time: 12:02": "39.26kph"}
-			expect(actual).toBe(expected);
-			// expect(actual["Time: 12:02"]).toEqual("39.226kph");
-			// expect(actual["Time: 8:30"]).toEqual("39.62 kph");
+			const result = theTraining.getGoalReach();
+			expect(result["Time: 12:02"]).toBe("39.26kph");
+			expect(result["Time: 15:15"]).toBe("39.62kph");
 		});
 
-		test('should return null if targetTime is not found', () => {
+		test('should return "non-existent drill" if targetTime is not found', () => {
 			const targetTime = '9:00';
-			// const targetDateTime = new Date (2024,3,27,9,0)
 			const aTrainingDrill = theTraining.findTrainingDrill(targetTime);
 			const actual = aTrainingDrill;
 			const expected = null;
@@ -147,15 +156,16 @@ describe('Training logs', () => {
 
 		test('should find the existing drill with the specified targetTime 12:02', () => {
 			const targetTime = '12:02';
-			const actual = theTraining.findTrainingDrill(targetTime);
-			expect(actual.swimTime).toBe(22.112);
-			expect(actual.runTime).toBe(271.97);
-			expect(actual.bikeTime).toBe(2140.6);
+			const aTrainingDrill = theTraining.findTrainingDrill(targetTime);
+			const actual = aTrainingDrill;
+			expect(aTrainingDrill.swimTime).toBe(22.112);
+			expect(aTrainingDrill.runTime).toBe(271.97);
+			expect(aTrainingDrill.bikeTime).toBe(2140.6);
 		});
 
 		test('getting all drills successfully', () => {
 			const receivedAllDrills = theTraining.getAllDrills();
-			let expected = "[March 17, 2024 - Unknown]\nThere's 4 drill(s) recorded on this session."
+			let expected = "[April 3, 2024 - Unknown]\nThere's 4 drill(s) recorded on this session."
 			expected += "\n[Drill Start Time: 19:10]\nSwimming - 35.72 seconds\nRunning - 339.50 seconds\nCycling - 4760.31 seconds"
 			expected += "\n[Drill Start Time: 15:15]\nSwimming - 21.56 seconds\nRunning - 236.17 seconds\nCycling - 2154.40 seconds"
 			expected += "\n[Drill Start Time: 08:30]\nSwimming - 45.90 seconds\nRunning - 593.50 seconds\nCycling - 2120.20 seconds"
