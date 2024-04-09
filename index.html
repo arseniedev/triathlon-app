@@ -49,11 +49,16 @@
         const allData = storage.loadAllLocalStorage() 
         console.log(allData)
     </script>
-    <!-- <script type="module">
-        import IndexDB from './src/training_db.js';
-        let db = new TriathlonDatabase()
-        db.connectDB()
-    </script> -->
+    
+    <script type="module">
+      // import {manageDatabase} from './src/triathlon.js'
+      // manageDatabase()
+      import Triathlon from './src/triathlon_DB.js';
+      let db = new Triathlon()
+      // db.manageDatabase()
+      db.deleteDatabase("DefaultDB")
+  </script>
+    
 
 </body>
 
