@@ -44,7 +44,7 @@ export default class TriathlonViewModel {
 
   clickable() {
     let test = this.allValid.id && this.allValid.firstname
-    console.log(test)
+    // console.log(test)
     return test
   }
 
@@ -76,7 +76,7 @@ export default class TriathlonViewModel {
 
   cache() {
     let output// = {}
-    let container = this.timer.allCacheTimers
+    let container = this.timer.allCacheDuration
     let index = container.length
 
     let duration = this.timerHandler().elapsed
@@ -127,9 +127,10 @@ export default class TriathlonViewModel {
   }
 
   search(value) {
+    if (!value|| value === "-") return "-"
     let query = this.triathlon.findAthlete(value)
     return query === null ? 
-      "No athlete found" : 
+      "No athlete found": 
       `Athlete Found: [${query.id}] ${query.firstname} ${query.lastname}`
   }
 
@@ -141,7 +142,6 @@ export default class TriathlonViewModel {
     let form = document.getElementById('athlete-form')
     let timers = this.container
     let output = this.triathlon.handleForm(form, timers)
-    // this.triathlon.addAthlete(output)
     this.triathlon.saveToLocalStorage(output)
     form.reset()
 
@@ -149,7 +149,6 @@ export default class TriathlonViewModel {
   }
 
   delete(id) {
-    // console.log(id)
-    this.triathlon.deleteAthlete(id)
+    return this.triathlon.deleteAthlete(id)
   }
 }

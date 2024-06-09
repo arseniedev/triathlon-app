@@ -3,14 +3,16 @@
 // npm start
 // main function - starting point of this web app
 
-import TriathlonModel from "./Model/triathlon_model.js"
-import TimerModel from "./Model/timer_model.js"
+// import Duration from "./Model/duration.js"
+import TriathlonModel from "./Model/triathlon.js"
+import Stopwatch from "./Model/stopwatch.js"
 import TriathlonViewModel from "./ViewModel/triathlon_viewmodel.js"
 import TriathlonView from "./View/triathlon_view.js"
 import TriathlonDB from "./Storage/database.js"
 
 const db = new TriathlonDB()
-const timer = new TimerModel(db)
+// const duration = new Duration()
+const timer = new Stopwatch(db)
 const triathlon = new TriathlonModel(db)
 const viewModel = new TriathlonViewModel(triathlon,timer)
 
@@ -21,7 +23,7 @@ const element = (
           onClear={viewModel.clear}
           onCache={viewModel.cache}
           onSubmit={viewModel.submit}
-          onGetEntries={viewModel.display}
+          onDisplay={viewModel.display}
           onSearch={viewModel.search}
           onCheck={viewModel.validate}
           onDelete={viewModel.delete}

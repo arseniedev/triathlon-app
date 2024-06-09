@@ -1,19 +1,19 @@
+import Timer from "../Components/timer_component.js"
+import Cache from "../Components/cache_component.js"
+import AthleteForm from "../Components/form_component.js"
 import AthleteTable from "../Components/athlete_table.js"
-import Timer from "../Components/timer.js"
-import Cache from "../Components/cache.js"
-import AthleteForm from "../Components/form.js"
-
+import Calculator from "../Components/calculator_component.js"
 
  // View is responsible for rendering the UI and handling user interactions.
 
-export default function TriathlonView({onInit, onClear, onCache, onSubmit, onGetEntries, onSearch, onCheck, onDelete}) {
+export default function TriathlonView({onInit, onClear, onCache, onSubmit, onDisplay, onSearch, onCheck, onDelete}) {
   const [elapsed, setElapsed] = React.useState('00:00:00')
   const [initButton, setInitButton] = React.useState('Play')
   const [cachedTimes, setCachedTimes] = React.useState([])
 
   const [clickable, setClickable] = React.useState(true)
   const [form, setForm] = React.useState()
-  const [entry, setEntry] = React.useState(onGetEntries)
+  const [entry, setEntry] = React.useState(onDisplay)
 
   const initState = {
     elapsed: elapsed,
@@ -34,7 +34,6 @@ export default function TriathlonView({onInit, onClear, onCache, onSubmit, onGet
       setCachedTimes([])
       setForm()
       setClickable(true)
-      // document.getElementById('currentSport').replaceChildren('')
   }
 
   const cacheTime = () => {
@@ -49,36 +48,24 @@ export default function TriathlonView({onInit, onClear, onCache, onSubmit, onGet
 
   const handleSubmit = () => {
     onSubmit()
-    // handleLoadStorage()
     handleClear() //equivalent:setCachedTimes([]);setElapsed('00:00:00');setForm(false);setClickable(true)
-    setEntry(onGetEntries())
+    setEntry(onDisplay())
     // location.reload()
-  }
-
-  const handleLoadStorage = () => {
-    // onGetEntries()
-    // console.log(onGetEntries())
-    // setEntry(onGetEntries())
   }
 
   const handleResetStorage = () => {
     localStorage.clear()
     handleClear()
-    location.reload()
+    setTimeout(() => {
+      alert('Data has been cleared.')
+    }, 1000) // 150ms delay
+    setEntry(onDisplay())
+    // location.reload()
   }
 
-  // const handleDelete = (target) => {
-    // console.log('delete')
-    // onDelete(target)
-    // console.log(onGetEntries())
-    // setEntry(onGetEntries())
-
-    // setEntry(onDelete(target))
-    // handleLoadStorage()
-
-    // let check = onCheck()
-    // handleCompleteSet(check)
-  // }
+  const handleDelete = (target) => {
+    setEntry(onDelete(target))
+  }
 
   const handleCompleteSet = (state=false) => {
     if(state){
@@ -100,7 +87,6 @@ export default function TriathlonView({onInit, onClear, onCache, onSubmit, onGet
           onClear={handleClear}
           onCache={cacheTime}
           onReset={handleResetStorage}
-          // onLoad={handleLoadStorage}
         />
         <Cache
           initCache={cachedTimes}
@@ -109,11 +95,13 @@ export default function TriathlonView({onInit, onClear, onCache, onSubmit, onGet
       </div>
       <div className="mt-4">
           <AthleteTable
-            // onAppend={entry}
             onSearch={onSearch}
-            onDelete={onDelete}
+            onDelete={handleDelete}
             onGet={entry}
           />
+      </div>
+      <div>
+        <Calculator/>
       </div>
     </div>
 
