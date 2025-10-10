@@ -1,65 +1,16 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="./icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triathlon</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triathlon App</title>
-</head>
-
-<body>
-    <script type="module">
-        import Storage from './src/storage.js';
-        let storage = new Storage()
-
-        //drill saving test data
-        let drill = {
-            time: "12:01",
-            swimTime: 19.17,
-            runTime: 321, 
-            bikeTime: 2455
-        }
-        storage.saveDrillToStorage(drill)
-
-        let training = {
-            date: "March 13, 2024",
-            location: "Evelyn Hugo Sports Centre"
-        }
-        storage.saveTrainingToStorage(training)
-
-        // training loading test sample
-        let index = 0
-        let keys = ['date','location']
-        for (let key of keys) {
-            let result = storage.loadLocalStorage(key) 
-            console.log(keys[index] + ": " + result)
-            index ++
-        }
-
-        // drill loading test sample
-        index = 0
-        keys = ['time','swimTime','runTime', 'bikeTime']
-        for (let key of keys) {
-            let result = storage.loadLocalStorage(key) 
-            console.log(keys[index] + ": " + result)
-            index ++
-        }
-
-        // Loading both training and drills
-        const allData = storage.loadAllLocalStorage() 
-        console.log(allData)
-    </script>
-    
-    <script type="module">
-      // import {manageDatabase} from './src/triathlon.js'
-      // manageDatabase()
-      import Triathlon from './src/triathlon_DB.js';
-      let db = new Triathlon()
-      // db.manageDatabase()
-      db.deleteDatabase("DefaultDB")
-  </script>
-    
-
-</body>
-
+  </head>
+  <body class="m-4">
+    <h1>Triathlon Vite + React + IndexDB + PWA</h1>
+    <p>Tip: Hover on buttons to see details!</p>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
