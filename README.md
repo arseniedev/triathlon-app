@@ -53,6 +53,32 @@ npm start
 
 ---
 
+## Usage
+1. Sign up or log in (if authentication is implemented).
+2. Add your training sessions for each sport.
+3. Track your weekly/monthly performance via dashboards.
+4. Set goals and view charts to monitor your progress.
+
+## Folder Structure
+```
+src/
+├─ components/      # Reusable UI components
+├─ pages/           # Route-level pages
+├─ context/         # State management (React Context / Redux)
+├─ hooks/           # Custom React hooks
+├─ types/           # TypeScript interfaces & types
+├─ utils/           # Helper functions
+├─ assets/          # Images, icons, and other assets
+└─ App.tsx          # Main App component
+```
+
+## Future Improvements
+- Integration with external APIs (e.g., Strava, Garmin)
+- User authentication & profile management
+- Export training data to CSV or PDF
+- Mobile app version with React Native
+
+---
 
 > [!WARNING]
 > ## Important Notice: Academic Integrity
