@@ -77,6 +77,7 @@ src/
 - User authentication & profile management
 - Export training data to CSV or PDF
 - Mobile app version with React Native
+- Automated unit and integration testing with Jest and React Testing Library, with potential CI integration
 
 ---
 
