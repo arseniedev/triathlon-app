@@ -4,16 +4,10 @@ A web application built with **React JS / TypeScript** to help triathletes track
 ---
 
 ## Demo
-Include a screenshot or GIF here:
-![Triathlon App Screenshot](./assets/screenshot.png)  
-🔗 Live Demo: [ link to be added ] 
+🔗** Live Demo:** [ link to be added ] 
 
-> [!WARNING]
-> ## Important Notice: Academic Integrity
-> **BCDE211 - Best Programming Practices (Web and Mobile Development)**
-> This portfolio contains original work completed as part of my BCDE211 - Best Programming Practices (Web and Mobile Development) course at Ara Institute of Canterbury. I do not condone plagiarism or academic misconduct in any form. This project is for academic purposes only and is not intended to be copied or used without proper authorisation.
-
-The university has a STRICT policy on academic misconduct, and I fully support this policy. Any attempt to plagiarize, copy, or use this work as your own will result in serious consequences. Please respect academic integrity and do not attempt to pass off this work as your own.
+**Snapshots**
+![Triathlon App Screenshot](./assets/screenshot.png)
 
 ---
 
@@ -59,5 +53,13 @@ npm start
 
 ---
 
-## **Disclaimer**
-All the content presented here is the result of my own individual work, and any resemblance to other works is purely coincidental. If you are a student, please refrain from using or copying this work in any way that violates the principles of academic honesty and integrity.
+
+> [!WARNING]
+> ## Important Notice: Academic Integrity
+> **BCDE211 - Best Programming Practices (Web and Mobile Development)**
+> 
+> This portfolio contains original work completed as part of my BCDE211 - Best Programming Practices (Web and Mobile Development) course at Ara Institute of Canterbury. I do not condone plagiarism or academic misconduct in any form. This project is for academic purposes only and is not intended to be copied or used without proper authorisation.
+> The university has a STRICT policy on academic misconduct, and I fully support this policy. Any attempt to plagiarize, copy, or use this work as your own will result in serious consequences. Please respect academic integrity and do not attempt to pass off this work as your own.
+>
+> ## **Disclaimer**
+> All the content presented here is the result of my own individual work, and any resemblance to other works is purely coincidental. If you are a student, please refrain from using or copying this work in any way that violates the principles of academic honesty and integrity.
