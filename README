@@ -1,60 +1,63 @@
-# project_triathlon
+# Triathlon App 🏊‍♂️🚴‍♂️🏃‍♂️
+A web application built with **React JS / TypeScript** to help triathletes track and analyze their training across swimming, cycling, and running. Designed for both casual enthusiasts and competitive athletes to log sessions, monitor progress, and visualize performance trends.  
 
-main
+---
 
-<<NO JEST TEST>>
-triathlon_simplified_1.0
-----functional MVC + html
+## Demo
+Include a screenshot or GIF here:
+![Triathlon App Screenshot](./assets/screenshot.png)  
+🔗 Live Demo: [ link to be added ] 
 
-triathlon_simplified_1.1
-This athlete has 3 logged trainings:
-    10/02/2024     06:15     65.30 minutes     Everdeen Hall     
-    12/01/2024     08:45     45.00 minutes     Green Hills     
-    24/02/2023     15:32     32.12 minutes     Maxwells's Hall   
+> [!WARNING]
+> ## Important Notice: Academic Integrity
+> **BCDE211 - Best Programming Practices (Web and Mobile Development)**
+> This portfolio contains original work completed as part of my BCDE211 - Best Programming Practices (Web and Mobile Development) course at Ara Institute of Canterbury. I do not condone plagiarism or academic misconduct in any form. This project is for academic purposes only and is not intended to be copied or used without proper authorisation.
 
-----Training & Athlete
-----plan to separate sports component
-----functional MVC, only showed training & athlete
+The university has a STRICT policy on academic misconduct, and I fully support this policy. Any attempt to plagiarize, copy, or use this work as your own will result in serious consequences. Please respect academic integrity and do not attempt to pass off this work as your own.
 
-triathlon_simplified_1.2
-This athlete has 6 logged trainings:
-     [false] Fri Feb 02 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Everdeen Hall]     
-     [false] Fri Feb 23 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Green Hills]     
-     [false] Fri Jan 05 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Everdeen Hall]     
-     [true] Mon Jan 22 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 216.00 minutes [Heavensbee Gymnasium]     
-     [true] Sun Dec 31 2023 00:00:00 GMT+1300 (New Zealand Daylight Time) - 140.00 minutes [Larcroft]     
-     [false] Tue Dec 10 2024 00:00:00 GMT+1300 (New Zealand Daylight Time) - 0.00 minutes [Maxwell's Hall]     
-----functional MVC + html
-----true or false test + duration
+---
 
+## Features
 
-<<JEST TEST>>
+- **Multi-sport Logging** – Record swimming, cycling, and running sessions with distance, duration, and notes.  
+- **Progress Tracking** – Visualize improvements over time with charts and summaries.  
+- **Responsive Design** – Works on desktop and mobile devices.  
+- **TypeScript Integration** – Type-safe codebase for reliability and maintainability.  
+- **Customizable Workouts** – Add personalized training plans and goals.  
+- **Data Persistence** – Store and retrieve sessions using local storage or an API backend (optional).  
 
-[curent]
-triathlon_indexDb
-----failures
-----storage?
+---
 
-[MOST STABLE]
-triathlon_no_db
-----100% TEST
-----failed local Storage
+## Tech Stack
+- **Frontend:** React JS, TypeScript, React Router  
+- **State Management:** React Context / Redux (if used)  
+- **Styling:** Tailwind CSS / CSS Modules (adjust based on your project)  
+- **Charts & Visualization:** Chart.js / Recharts  
+- **Optional Backend:** Node.js / Express, Firebase, or any REST API  
 
-[STORAGE]
-triathlon_non_oop
-----storage & storage.test module
-----has to replace the triathlon_no_db to check storage functionality
+---
 
-triathlon_1.0
-----functional loading storage
-----issues:test
+## Installation
 
-triathlon_1.1
-----compare main: no formatDate() & formatTime()
-----same drill, storage, & training test
-----issues:test
+1. Clone the repository:  
 
-triathlon_1.2
-----athlete test & class only, functionality unverfied
-----training test & class, functional
-----training LOCALSTORAGE test pass
+   ```bash
+   git clone https://github.com/arsenie-sarmiento/draft-project-triathlon-app.git
+   cd draft-project-triathlon-app
+
+2. Install dependencies:
+```
+npm install
+```
+
+3. Start the development server:
+```
+npm start
+```
+
+4. Open http://localhost:3000 in your browser.
+
+---
+
+## **Disclaimer**
+All the content presented here is the result of my own individual work, and any resemblance to other works is purely coincidental. If you are a student, please refrain from using or copying this work in any way that violates the principles of academic honesty and integrity.
