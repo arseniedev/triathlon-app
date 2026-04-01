@@ -1,0 +1,240 @@
+/* RESET */
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, img, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, a, article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+ 
+* {
+    box-sizing: border-box;
+    width: 100;
+}
+
+/* LAYOUT */
+nav, main, aside, footer {
+    padding: 1em;
+}
+
+/* TYPOGRAPHY */
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1a2a30;
+    line-height: 1.5;
+}
+
+h1, h2, h3, nav {
+    font-family: Oswald, "Helvetica Neue", sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+h1, h2, h5 {
+    /* font-size: 2rem; */
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h5 {
+    margin-bottom: 0.4em;
+}
+
+nav {
+    font-size: 1.25rem;
+}
+
+/* COLOUR SCHEME & BORDERS */
+footer {
+    color: #3d0e03;
+    text-align: center;
+}
+
+body {
+    display: grid;
+}
+
+header {
+    grid-row: 1;
+    color: #87e1ff;
+    background-color: rgb(53, 63, 63);
+}
+
+header > h1 {
+    padding: 20px;
+    text-align: center;
+}
+
+main {
+    grid-row: 3;
+    background-color: #1f1712;
+    color: #5a8ea1;
+}
+
+nav {
+    grid-row: 4;
+}
+
+aside {
+    grid-row: 2;
+    font-size: 0.9rem;
+    padding: 20px 30px 20px 30px;
+}
+
+footer {
+    grid-row: 5;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 40px;
+}
+
+.tablinks {
+    color: rgb(253, 246, 246);
+    background-color: #1f1712;
+    /* text-align: center; */
+    width: 80%;
+    opacity: 0.5;
+    font-size: 1rem;
+}
+
+.tablinks:hover {
+    background-color: #1f1712;
+    color: #7ef3f3;
+    opacity: 1;
+}
+
+.tab {
+    display: flex;
+    margin: 20px 50px 10px 50px;
+    /* justify-content: space-between; */
+    /* flex-direction: column; */
+}
+
+#time_display {
+    margin: 0 50px 80px 50px;
+}
+
+main .tablinks {
+    width: 30%;
+    margin: 0 50px 10px 50px;
+}
+
+#interval_output > h3 {
+    font-family:'Courier New', Courier, monospace;
+    color: #72ccec;
+    font-size: 3rem;
+}
+
+@media screen and (min-width: 43em) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr 30em 10em 1fr 
+    }
+    
+    header {
+        grid-column: 1/ 5;
+    }
+    aside {
+        grid-column: 1/3;
+        grid-row: 2/3;
+        font-size: 0.9em;
+        display: block;
+    }
+
+    nav {
+        grid-column: 1/3;
+        grid-row: 3/4;
+    }
+
+    main {
+        grid-column: 3/5;
+        grid-row: 2/4;
+        padding: 40px 0 40px 0;
+    }
+    
+    h2 {
+        font-size: 3rem;
+    }
+
+    footer {
+        grid-column: 1/ 5;
+        grid-row: 4;
+        font-size: 1.7rem;
+    }
+
+    nav .tablinks {
+        width: 50%;
+    }
+
+    main .tablinks {
+        width: 80%;
+        margin: 0 16px;
+    }
+
+    .tab {
+        margin: 0 3px 0 3px;
+    }
+
+    #interval_output > h3 {
+        font-family:'Courier New', Courier, monospace;
+        color: #72ccec;
+        font-size: 1.9rem;
+    }
+}
+
+@media screen and (min-width: 64em) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr 30em 10em 1fr 
+    }
+    
+    header {
+        grid-column: 1/ 5;
+    }
+    aside {
+        grid-column: 1/3;
+        grid-row: 2/3;
+        font-size: 1.2em;
+        display: block;
+    }
+
+    nav {
+        grid-column: 1/3;
+        grid-row: 3/4;
+    }
+    
+    main {
+        grid-column: 3/5;
+        grid-row: 2/6;
+        padding-top: 40px;
+    }
+    
+    footer {
+        grid-column: 1/ 3;
+        grid-row: 5;
+    }
+
+    nav .tablinks {
+        width: 50%;
+    }
+
+    main .tablinks {
+        width: 20%;
+        height: 30%;
+        /* margin: 0 50px 0 50px; */
+    }
+
+
+    #interval_output > h3 {
+        font-family:'Courier New', Courier, monospace;
+        color: #72ccec;
+        font-size: 5rem;
+    }
+
+    #prompt {
+        font-size: 1.2rem;
+        font-family:'Courier New', Courier, monospace;
+    }
+}
