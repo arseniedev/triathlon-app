@@ -24,8 +24,5 @@ class View {
     static out(newText) {
         document.body.innerHTML += newText
     }
-    // this code block should be removed in your final code if it is never used in the system.
-    // static add(newText) {
-    //     document.body.innerHTML += `<br>${newText}`
-    // }
+
 }
