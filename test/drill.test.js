@@ -1,8 +1,7 @@
 /* eslint linebreak-style: ["error", "unix"] */
 
 import { describe } from '@jest/globals';
-import TrainingDrill from '../src/drill'; // Part
-// import Training from '../src/training';
+import TrainingDrill from '../src/drill.js';
 
 describe('Training drills logs', () => {
 	// let newTraining
