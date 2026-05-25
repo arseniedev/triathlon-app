@@ -23,6 +23,11 @@ constructor(newDuration = 0, defaultDistance = 20.0, newAverageSpeed = 0.0) {
     }
 
     calculateAverageSpeed() {
-        this.speed += this.distance / this.duration
+        if (this.duration === 0) {
+            this.speed = 0
+        } else {
+            this.speed = this.distance / this.duration
+        }
+        return this.speed
     }
 }
