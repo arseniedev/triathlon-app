@@ -1,16 +1,18 @@
 export class Running {
     duration
     distance
+    speed
     // percentage 
 // constructor(newDate, newTime, newFinisherTime, newLocation)
 constructor(newDuration = 0, defaultDistance = 5.0) {
         //duration in s
-        //distance in km
+         //distance in km
         //newDistanceTravelled = 0.0, newTimePercentage = 0.0
 
         // this.name = newSportName
         this.duration = newDuration
         this.distance = defaultDistance
+        this.speed = 0.0
         // this.percentage = newTimePercentage
     }
 
@@ -21,7 +23,11 @@ constructor(newDuration = 0, defaultDistance = 5.0) {
     }
 
     calculateAverageSpeed() {
-        let result
-        
+        if (this.duration === 0) {
+            this.speed = 0
+        } else {
+            this.speed = this.distance / this.duration
+        }
+        return this.speed
     }
 }
