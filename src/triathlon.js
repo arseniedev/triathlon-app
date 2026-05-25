@@ -1,6 +1,6 @@
-import Athlete from './athlete'
+import { Athlete } from './athlete.js'
 
-export default class Triathlon {
+export class Triathlon {
 	constructor(newEventDate = new Date(), newLocation = "Unknown",newSwimDistance = 3.5, newRunDistance = 10.0, newBikeDistance = 80.0) {
         this.date = newEventDate
         this.location = newLocation

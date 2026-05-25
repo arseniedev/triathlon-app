@@ -2,8 +2,9 @@
 /* eslint quotes: ["error", "single"] */
 /* eslint semi: ["error", "never"] */
 /* globals */
+import { TrainingSession } from './training_session.js'
 
-export default class Athlete {
+export class Athlete {
 	constructor(newId, newFirstName, newLastName, newAge, newSwimmingDuration = 0.0, newRunningDuration = 0.0, newCyclingDuration = 0.0, theTriathlon) {
 		this.id = newId
 		this.firstname = newFirstName
@@ -15,15 +16,30 @@ export default class Athlete {
 		this.speed = 0.0         
 		this.myTriathlon = theTriathlon
 		this.selectSaveChanges = false
+		this.allTrainingSessions = []
 	}
 
-    toString() {
-        let result = `[Athlete No.${this.id}] ${this.firstname} ${this.lastname}\n`
-        result += `Age: ${this.age} Speed: ${this.calculateSpeedKph()} kph\n`
-		result += `Swimming - ${this.swimTime} hours\n`
-		result += `Running - ${this.runTime} hours\n`
-		result += `Cycling - ${this.bikeTime} hours`
+    displayDetails() {
+        let result = `[Athlete No.${this.id}] ${this.firstname} ${this.lastname} \n`
+        result += `Age: ${this.age} Speed: ${this.calculateSpeedKph()} kph \n`
+		result += `Swimming - ${this.swimTime.toFixed(2)} minutes \n`
+		result += `Running - ${this.runTime.toFixed(2)} minutes \n`
+		result += `Cycling - ${this.bikeTime.toFixed(2)} minutes \n`
         return result
+	}
+
+	addTrainingSession(trainingDate, startTime, finisherTime, location) {
+		const NEW_SESSION = new TrainingSession(trainingDate, startTime, finisherTime, location)
+		this.allTrainingSessions.push(NEW_SESSION)
+	}
+
+	getSportComponent(component) {
+		const componentDict = {
+			swimming: this.swimTime,
+			running: this.runTime,
+			cycling: this.bikeTime
+		}
+		return componentDict
 	}
 
 	// Converting duration seconds into hours

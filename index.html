@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Triathlon App</title>
+</head>
+
+<body>
+    <script type="module">
+        import { View }       from './src/view.js'
+        import { Controller } from './src/controller.js'
+
+        function main() {
+            let theTraining = Controller.setup()
+            View.clr()
+            View.out(theTraining.displayDetails())
+        }
+
+        window.onload = main
+    </script>
+</body>
+
+</html>
