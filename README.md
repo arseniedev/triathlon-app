@@ -36,8 +36,8 @@ A web application built with **React JS / TypeScript** to help triathletes track
 1. Clone the repository:  
 
    ```bash
-   git clone https://github.com/arsenie-sarmiento/draft-project-triathlon-app.git
-   cd draft-project-triathlon-app
+   git clone https://github.com/arsenie-sarmiento/triathlon-app.git
+   cd triathlon-app
 
 2. Install dependencies:
 ```
@@ -48,8 +48,6 @@ npm install
 ```
 npm start
 ```
-
-4. Open http://localhost:3000 in your browser.
 
 ---
 
