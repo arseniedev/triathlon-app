@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head><meta charset="utf-8"> 
+<head>
+    <meta charset="utf-8">
     <title>Triathlon App</title>
 </head>
 
-<body>   
-    <script src="src/view.js"></script>
-    <script src="src/triathlon_drill.js"></script>
-    <script src="src/sport_component.js"></script>
-    <script src="src/controller.js"></script>
-    <script>
-        function main () {
-			let theTraining = Controller.setup()
-			View.clr()
-			View.out(theTraining.getSportComponent())
-			}
+<body>
+    <script type="module">
+        import { View }       from './src/view.js'
+        import { Controller } from './src/controller.js'
+
+        function main() {
+            const triathlon = Controller.setup()
+            View.clr()
+            View.out(View.displayTriathlon(triathlon))
+            View.out(View.displayAllAthletes(triathlon))
+            View.out(View.displayAthleteStats(triathlon))
+        }
+
         window.onload = main
     </script>
 </body>
