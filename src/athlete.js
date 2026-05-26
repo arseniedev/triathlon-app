@@ -1,8 +1,10 @@
-// triathlon 1.2
 import Training from './training';
 
 export default class Athelete {
     constructor(newFirstName, newLastName, newAge, newDistanceRequirement, newTargetSpeed) {
+		this.firstName = newFirstName
+		this.lastName = newLastName
+		// keep backward compatibility with existing callers/tests
 		this.firstname = newFirstName
 		this.lastname = newLastName
 		this.age = newAge
@@ -19,12 +21,9 @@ export default class Athelete {
     }
 
     getAllDrills() {
-        let result 
+        let result = ''
         for (let aTraining of this.allTraining) {
             result += aTraining
-            // for (let aDrill of aTraining.allDrillsLog) {
-            //     result += aDrill
-            // }
         }
         return result
     }
@@ -43,7 +42,7 @@ export default class Athelete {
 	}
 
     filterTrainingByPlace(targetLocation) {
-		this.sortTrainings();
+		this.sortTrainByAvgSpeed();
 		let foundTraining = null;
 		for (const aTraining of this.allTraining) {
 			if (aTraining.location === targetLocation) {
