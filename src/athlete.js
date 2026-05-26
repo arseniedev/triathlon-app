@@ -1,7 +1,3 @@
-/* eslint-env es6 */
-/* eslint quotes: ["error", "single"] */
-/* eslint semi: ["error", "never"] */
-/* globals */
 import { TrainingSession } from './training_session.js'
 
 export class Athlete {

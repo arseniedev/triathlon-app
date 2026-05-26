@@ -2,31 +2,23 @@ export class Swimming {
     duration
     distance
     speed
-    // percentage 
-// constructor(newDate, newTime, newFinisherTime, newLocation)
-constructor(newDuration = 0, defaultDistance = 0.75,) {
-        //duration in s
-        //distance in km
-        //newDistanceTravelled = 0.0, newTimePercentage = 0.0
 
-        // this.name = newSportName
+    constructor(newDuration = 0, defaultDistance = 0.75) {
         this.duration = newDuration
         this.distance = defaultDistance
         this.speed = 0.0
-        // this.percentage = newTimePercentage
     }
 
     toString() {
         let result
-        result = `${this.distance.toFixed(2)} kilometres ${this.duration} seconds` // kilometres ${this.newTimePercentage.toFixed(2)}%
+        this.calculateAverageSpeed()
+        result = `${this.distance.toFixed(2)} km ${this.duration} seconds ${this.speed.toFixed(2)} km/s`
         return result
     }
 
     calculateAverageSpeed() {
-        if (this.duration === 0) {
-            this.speed = 0
-        } else {
-            this.speed = this.distance / this.duration
+        if (this.duration > 0) {
+            this.speed = parseFloat((this.distance / this.duration).toFixed(2))
         }
         return this.speed
     }

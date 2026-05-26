@@ -1,7 +1,7 @@
+import { View } from './view.js'
 import { Cycling } from './cycling.js'
 import { Swimming } from './swimming.js'
 import { Running } from './running.js'
-import { View } from './view.js'
 
 export class TrainingSession {
     date 
@@ -30,21 +30,47 @@ export class TrainingSession {
         return result
     }
 
-    addCyclingLog(newDuration, bikeDistance = 20.0) {
-        const NEW_CYCLE = new Cycling(newDuration, bikeDistance)
+    addCyclingLog(newDuration, defaultDistance = 20.0) {
+        const NEW_CYCLE = new Cycling(newDuration, defaultDistance)
         this.finisherTime += newDuration
         this.allCyclingLogs.push(NEW_CYCLE)
     }
 
-    addSwimmingLog(newDuration, swimmingDistance = 0.75) {
-        const NEW_SWIM = new Swimming(newDuration, swimmingDistance)
+    addSwimmingLog(newDuration, defaultDistance = 0.75) {
+        const NEW_SWIM = new Swimming(newDuration, defaultDistance)
         this.finisherTime += newDuration
         this.allSwimmingLogs.push(NEW_SWIM)
     }
 
-    addRunningLog(newDuration, runningDistance = 5.0) {
-        const NEW_RUN = new Running(newDuration, runningDistance)
+    addRunningLog(newDuration, defaultDistance = 5.0) {
+        const NEW_RUN = new Running(newDuration, defaultDistance)
         this.finisherTime += newDuration
         this.allRunningLogs.push(NEW_RUN)
+    }
+
+    displayLogs() {
+        let result = ''
+        if (this.allSwimmingLogs.length > 0) {
+            result += `Swimming Logs: `
+            for (const log of this.allSwimmingLogs) {
+                result += `${log.toString()} `
+            }
+            result += `${View.newline()}`
+        }
+        if (this.allRunningLogs.length > 0) {
+            result += `Running Logs: `
+            for (const log of this.allRunningLogs) {
+                result += `${log.toString()} `
+            }
+            result += `${View.newline()}`
+        }
+        if (this.allCyclingLogs.length > 0) {
+            result += `Cycling Logs: `
+            for (const log of this.allCyclingLogs) {
+                result += `${log.toString()} `
+            }
+            result += `${View.newline()}`
+        }
+        return result
     }
 }

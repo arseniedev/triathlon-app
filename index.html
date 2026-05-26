@@ -12,9 +12,11 @@
         import { Controller } from './src/controller.js'
 
         function main() {
-            let theTraining = Controller.setup()
+            const triathlon = Controller.setup()
             View.clr()
-            View.out(theTraining.displayDetails())
+            View.out(View.displayTriathlon(triathlon))
+            View.out(View.displayAllAthletes(triathlon))
+            View.out(View.displayAthleteStats(triathlon))
         }
 
         window.onload = main
