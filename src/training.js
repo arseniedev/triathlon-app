@@ -3,6 +3,8 @@ import { TrainingDrill } from './drill.js';
 
 export class Training {
 	constructor(newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
+	// constructor(newDate = new Date(), newLocation = "Unknown") {
+		this.date = newDate;
 		this.location = newLocation;
 		this.distance = kmDistanceRequirement
 		this.speed = targetSpeed
