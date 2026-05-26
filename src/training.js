@@ -1,18 +1,19 @@
-/* triathlon 1.0 */
-/* getGoalReach(); */
-import TrainingDrill from './drill';
+import { Storage } from './storage.js';
+import { TrainingDrill } from './drill.js';
 
-export default class Training {
-	constructor(newDate = new Date(), newLocation = "Unknown") {
+export class Training {
+	constructor(newDate = new Date(), newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
+	// constructor(newDate = new Date(), newLocation = "Unknown") {
 		this.date = newDate;
 		this.location = newLocation;
-		this.targetDuration = 360; // Seconds //? constant value
+		this.distance = kmDistanceRequirement
+		this.speed = targetSpeed
 		this.drillCount = 0; // ? increasing value
 		this.allDrillsLog = [];
 	}
 
-	addDrill(newTimeStamp, newSwimmingDuration, newRunningDuration, newCyclingDuration) {
-		const newDrill = new TrainingDrill(newTimeStamp, newSwimmingDuration, newRunningDuration, newCyclingDuration);
+	addDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration) {
+		const newDrill = new TrainingDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration);
 		this.drillCount += 1;
 		this.allDrillsLog.push(newDrill);
 		// Storage.saveDrillToStorage(newDrill)
@@ -45,25 +46,25 @@ export default class Training {
 		});
 	}
 
-	formatDate() {
-		const d = this.date;
-		const months = [
-			'January',
-			'February',
-			'March',
-			'April',
-			'May',
-			'June',
-			'July',
-			'August',
-			'September',
-			'October',
-			'November',
-			'December',
-		];
-		const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-		return result;
-	}
+	// formatDate() {
+	// 	const d = this.date;
+	// 	const months = [
+	// 		'January',
+	// 		'February',
+	// 		'March',
+	// 		'April',
+	// 		'May',
+	// 		'June',
+	// 		'July',
+	// 		'August',
+	// 		'September',
+	// 		'October',
+	// 		'November',
+	// 		'December',
+	// 	];
+	// 	const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+	// 	return result;
+	// }
 
 	getGoalReach() {
 		this.sortDrills();
@@ -99,14 +100,20 @@ export default class Training {
 		}
 		return result;
 	}
+//!
+	// calculateAvgSpeed() { // Kph //by dates
+	// 	let cumulativeSpeed = 0;
+	// 	for (const aDrill of this.allDrillsLog) {
+	// 		cumulativeSpeed += aDrill.calculateSpeed();
+	// 	}
+	// 	return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
+	// }
 
-	calculateAvgSpeed() { // Kph
-		let cumulativeSpeed = 0;
-		for (const aDrill of this.allDrillsLog) {
-			cumulativeSpeed += aDrill.calculateSpeed();
-		}
-		return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
-	}
+//!
+	// isGoalReached() {
+	// 	// const targetSpeed = 37.16
+	// 	return this.calculateSpeed() >= this.targetSpeed
+	// }
 
 	updateDrill(startTime, keyItem, valueReplacement) {
 		const aDrill = this.findTrainingDrill(startTime);

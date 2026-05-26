@@ -1,16 +1,15 @@
-/* eslint linebreak-style: ["error", "unix"] */
-
-import { describe } from '@jest/globals';
-import TrainingDrill from '../src/drill'; // Part
-// import Training from '../src/training';
+import { TrainingDrill } from '../src/drill.js';
+import { Training } from '../src/training.js';
 
 describe('Training drills logs', () => {
-	// let newTraining
+	let newTraining
 	let newDrill
+	let testDateTime
 
 	beforeEach(() => {
-		// newTraining = new Training("Evelyn Hugo Colosseum")
+		newTraining = new Training("Evelyn Hugo Colosseum")
 		newDrill = new TrainingDrill();
+		testDateTime = new Date(2024,3,12,13,11) 
 	});
 
 	describe('Drills with required fields', () => {
@@ -20,9 +19,21 @@ describe('Training drills logs', () => {
 			expect(actual).toBe(expected);
 		});
 
-		test('should have .dateTime property', () => {
+		test('should have .dateTimeId property', () => {
 			expect(
-				Object.hasOwn(newDrill, 'dateTime'),
+				Object.hasOwn(newDrill, 'dateTimeId'),
+			).toBeTruthy();
+		});
+
+		test('should have .date property', () => {
+			expect(
+				Object.hasOwn(newDrill, 'date'),
+			).toBeTruthy();
+		});
+
+		test('should have .time property', () => {
+			expect(
+				Object.hasOwn(newDrill, 'time'),
 			).toBeTruthy();
 		});
 
@@ -49,6 +60,20 @@ describe('Training drills logs', () => {
 		const unknown = undefined;
 		newDrill = new TrainingDrill(unknown);
 
+		test('use default date value April 5, 2024', () => {
+			const dateTimeOutput = newDrill.formatDateTime();
+			const expected = 'April 5, 2024';
+			const actual = dateTimeOutput['date']
+			expect(actual).toBe(expected);
+		});
+
+		test('use default time value 00:00', () => {
+			const dateTimeOutput = newDrill.formatDateTime();
+			const expected = '00:00';
+			const actual = dateTimeOutput['time']
+			expect(actual).toBe(expected);
+		});
+
 		test('should return a 0.00 total duration', () => {
 			const expected = 0.00;
 			const actual = newDrill.calculateTotalDuration();
@@ -56,33 +81,33 @@ describe('Training drills logs', () => {
 		});
 
 		describe('return correct values with handled missing parameters', () => {
-			let testSwim = 55.64;
-			let testRun = 192.3;
-			let testBike = 2454.431;
+			const testSwim = 55.64;
+			const testRun = 192.3;
+			const testBike = 2454.431;
 
 			test('return correct sum with default swimtime value used', () => {
-				newDrill = new TrainingDrill(new Date('March 3, 2023 13:11'), unknown, testRun, testBike);
+				newDrill = new TrainingDrill(testDateTime, unknown, testRun, testBike);
 				const expected = 0.74;
 				const actual = newDrill.calculateTotalDuration();
 				expect(actual).toBeCloseTo(expected, 2);
 			});
 
 			test('return correct sum with default runtime value used', () => {
-				newDrill = new TrainingDrill(new Date('March 3, 2023 13:11'), testSwim, unknown, testBike);
+				newDrill = new TrainingDrill(testDateTime, testSwim, unknown, testBike);
 				const expected = 0.70;
 				const actual = newDrill.calculateTotalDuration();
 				expect(actual).toBeCloseTo(expected, 2);
 			});
 
 			test('return correct sum with default bikeTime value used', () => {
-				newDrill = new TrainingDrill(new Date('March 3, 2023 13:11'), testSwim, testRun, unknown);
+				newDrill = new TrainingDrill(testDateTime, testSwim, testRun, unknown);
 				const expected = 0.07;
 				const actual = newDrill.calculateTotalDuration();
 				expect(actual).toBeCloseTo(expected, 2);
 			});
 			
 			test('should handle omitted bikeTime value', () => {
-				newDrill = new TrainingDrill(new Date('March 3, 2023 13:11'), testSwim, testRun);
+				newDrill = new TrainingDrill(testDateTime, testSwim, testRun);
 				const expected = 0.07;
 				const actual = newDrill.calculateTotalDuration();
 				expect(actual).toBeCloseTo(expected, 2);
@@ -91,32 +116,26 @@ describe('Training drills logs', () => {
 	})
 
 	describe('Has complete parameters, return correct values', () => {
-		const dateString = 'April 12, 2023 '
-		const timeString = '13:11'
-		let testSwim = 55.64;
-		let testRun = 192.3;
-		let testBike = 2454.431;
+		const testSwim = 55.64;
+		const testRun = 192.3;
+		const testBike = 2454.431;
 
 		test('should extract the right time', () => {
-			newDrill = new TrainingDrill(new Date('March 3, 2023 13:11'));
-			newDrill.formatTime()
-			const actual = newDrill.time
-			const expected = '13:11'
-			expect(actual).toBe(expected)
+			newDrill = new TrainingDrill(testDateTime, testSwim, testRun, testBike);
+			const dateTimeOutput = newDrill.formatDateTime();
+			expect(dateTimeOutput['date']).toBe('April 12, 2024');
+			expect(dateTimeOutput['time']).toBe('13:11');
 		});
 
 		test('should return the correct string and correct date format', () => {
-			newDrill = new TrainingDrill(new Date('April 12, 2023 13:11'), testSwim, testRun, testBike);
-			let expected = "[Date: April 12, 2023 Drill Start Time: 13:11]\n"
-			expected += "Swimming - 55.64 seconds\n"
-			expected += "Running - 192.30 seconds\n"
-			expected += "Cycling - 2454.43 seconds"
+			newDrill = new TrainingDrill(testDateTime, testSwim, testRun, testBike);
+			const expected = '\n[Date: April 12, 2024 Drill Start Time: 13:11]\nSwimming - 55.64 seconds\nRunning - 192.30 seconds\nCycling - 2454.43 seconds';
 			const actual = newDrill.toString();
 			expect(actual).toBe(expected);
 		});
 
 		test('should return an hour duration of  0.75, overriding default values', () => {
-			newDrill = new TrainingDrill(new Date(dateString + timeString), testSwim, testRun, testBike);
+			newDrill = new TrainingDrill(testDateTime, testSwim, testRun, testBike);
 			const expected = 0.75; // 2599.10
 			const actual = parseFloat(newDrill.calculateTotalDuration().toFixed(2));
 			expect(actual).toBe(expected);
@@ -124,30 +143,31 @@ describe('Training drills logs', () => {
 	});
 	
 	describe('sample drill with speed calculation', () => {
-		let sampleDateTime = new Date("July 6, 2023 09:22")
+		let distance = newTraining.distance
+		let targetSpeed = newTraining.speed
 		test('should calculate speed', () => {
-			newDrill = new TrainingDrill(sampleDateTime, 64.7, 204.07, 2403.22);
+			newDrill = new TrainingDrill(testDateTime, 64.7, 204.07, 2403.22);
 			const expected = 35.77; // Kph
-			const actual = newDrill.calculateSpeed();
+			const actual = newDrill.calculateSpeed(distance);
 			expect(actual).toBe(expected);
 		});
 
 		test('should return true if target duration is above the 37.16kph threshold', () => {
-			newDrill = new TrainingDrill(sampleDateTime, 17.5, 119.2, 62.213);
+			newDrill = new TrainingDrill(testDateTime, 17.5, 119.2, 62.213);
 			const expected = true;
-			const actual = newDrill.isGoalReached();
+			const actual = newDrill.isGoalReached(distanceKm,targetSpeed);
 			expect(actual).toBe(expected);
 		});
 		
 		test('should return false if target duration is lower than the 37.16kph threshold', () => {
-			newDrill = new TrainingDrill(sampleDateTime, 34.2, 423.7, 4880.0);
+			newDrill = new TrainingDrill(testDateTime, 34.2, 423.7, 4880.0);
 			const expected = false;
 			const actual = newDrill.isGoalReached();
 			expect(actual).toBe(expected);
 		});
 
 		test('should return false if target duration is just below the 37.16kph threshold', () => {
-			newDrill = new TrainingDrill(sampleDateTime, 25.7, 249.2, 2620);
+			newDrill = new TrainingDrill('12:30', 25.7, 249.2, 2620);
 			const expected = false;
 			const actual = newDrill.isGoalReached();
 			expect(actual).toBe(expected);

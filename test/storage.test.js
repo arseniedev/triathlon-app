@@ -1,7 +1,6 @@
 /* eslint linebreak-style: ["error", "unix"] */
-
-import {beforeEach, expect} from '@jest/globals';
-import Storage from '../src/storage';
+// import {beforeEach, expect} from '@jest/globals';
+import { Storage } from '../src/storage.js';
 
 describe('localStorage with Jest', () => {
 	describe('it can save and retrieve drill data', () => {
