@@ -1,8 +1,3 @@
-/* triathlon 1.1 */
-/* eslint quotes: ["error", "single"] */
-/* eslint semi: ["error", "never"] */
-/* globals */
-
 export class TrainingDrill {
 	// Supersprint
 	// ? to def or not
