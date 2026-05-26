@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1779703593144" clover="3.2.0">
-  <project timestamp="1779703593144" name="All files">
+<coverage generated="1779763495901" clover="3.2.0">
+  <project timestamp="1779763495901" name="All files">
     <metrics statements="111" coveredstatements="111" conditionals="29" coveredconditionals="29" methods="22" coveredmethods="22" elements="162" coveredelements="162" complexity="0" loc="111" ncloc="111" packages="1" files="2" classes="2"/>
     <file name="athlete.js" path="C:\Users\arsen\Documents\triathlon-app\src\athlete.js">
       <metrics statements="42" coveredstatements="42" conditionals="14" coveredconditionals="14" methods="7" coveredmethods="7"/>
