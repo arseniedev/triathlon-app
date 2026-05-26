@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1779755134981" clover="3.2.0">
-  <project timestamp="1779755134981" name="All files">
+<coverage generated="1779756120950" clover="3.2.0">
+  <project timestamp="1779756120950" name="All files">
     <metrics statements="91" coveredstatements="1" conditionals="18" coveredconditionals="2" methods="20" coveredmethods="1" elements="129" coveredelements="4" complexity="0" loc="91" ncloc="91" packages="1" files="3" classes="3"/>
     <file name="drill.js" path="C:\Users\arsen\Documents\triathlon-app\src\drill.js">
       <metrics statements="27" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="6" coveredmethods="0"/>
