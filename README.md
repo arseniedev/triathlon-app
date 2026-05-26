@@ -1,5 +1,7 @@
 # Triathlon App 🏊‍♂️🚴‍♂️🏃‍♂️
-A web application built with **React JS / TypeScript** to help triathletes track and analyze their training across swimming, cycling, and running. Designed for both casual enthusiasts and competitive athletes to log sessions, monitor progress, and visualize performance trends.  
+> BCDE211 Best Programming Practices - JavaScript
+>
+> A web application built with **React JS / TypeScript** to help triathletes track and analyze their training across swimming, cycling, and running. Designed for both casual enthusiasts and competitive athletes to log sessions, monitor progress, and visualize performance trends.  
 
 ---
 
