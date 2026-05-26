@@ -1,119 +1,64 @@
-import { Storage } from './storage.js';
-import { TrainingDrill } from './drill.js';
+import TrainingDrill from './drill'
+import Storage from './storage'
 
-export class Training {
-	constructor(newDate = new Date(), newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
-		this.date = newDate;
-		this.location = newLocation;
-		this.distance = kmDistanceRequirement
-		this.speed = targetSpeed
-		this.drillCount = 0; // ? increasing value
-		this.allDrillsLog = [];
-	}
+export default class  Training {
+    constructor(newID, newLocation, newDate = new Date()) {
+        this.id = newID
+        this.location = newLocation
+        this.date = newDate
+        this.targetDuration = 360 //seconds //? constant value
+        this.drillCount = 0 //? increasing value
+        this.allDrillsLog = []
+        this.storage = new Storage()
+    }
 
-	addDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration) {
-		const newDrill = new TrainingDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration);
-		this.drillCount += 1;
-		this.allDrillsLog.push(newDrill);
-	}
+    saveToStorage(drill) {
+        return this.storage.saveById(this.id, drill)
+    }
 
-	toString() {
-		let result;
-		result = `[${this.formatDate()} - ${this.location}]\nThere's ${this.drillCount} drill(s) recorded on this session.`;
-		return result;
-	}
+    loadLocalStorage(){
+        return this.storage.loadLocalStorage(this.id)
+    }
 
-	getAllDrills() {
-		let result = `${this.toString()}`
-		for (let aDrill of this.allDrillsLog) {
-			result += `${aDrill}`
-		}
-		return result
-	}
+    updateDrill(startTime, keyItem, valueReplacement) {
+        let aDrill = this.findTrainingDrill(startTime)
+        if (!aDrill) {
+            return this.allDrillsLog
+        }
+        aDrill[keyItem] = parseFloat(valueReplacement.toFixed(2))
+        return this.allDrillsLog
+    }
 
-	sortDrills() {
-		this.allDrillsLog.sort((a, b) => {
-			if (a.time < b.time) {
-				return -1;
-			}
+    addDrill(newTimeStamp, newSwimmingDuration, newRunningDuration, newCyclingDuration) {
+        const newDrill = new TrainingDrill(newTimeStamp, newSwimmingDuration, newRunningDuration, newCyclingDuration)
+        this.allDrillsLog.push(newDrill)
+        this.saveToStorage(newDrill)
+        this.drillCount += 1
+    }
 
-			if (a.time > b.time) {
-				return 1;
-			}
-			return 0;
-		});
-	}
+    findTrainingDrill(targetDrillStartTime) {
+        let foundDrill = null
+        for (let aDrill of this.allDrillsLog) {
+            if (!aDrill.time) {
+                aDrill.formatDateTime()
+            }
+            if (aDrill.time === targetDrillStartTime) {
+                foundDrill = aDrill
+                break
+            }
+        }
+        return foundDrill
+    }
 
-	formatDate() {
-		const d = this.date;
-		const months = [
-			'January',
-			'February',
-			'March',
-			'April',
-			'May',
-			'June',
-			'July',
-			'August',
-			'September',
-			'October',
-			'November',
-			'December',
-		];
-		const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-		return result;
-	}
-
-	getGoalReach() {
-		this.sortDrills();
-		let passedDrills = {}
-		for (const aDrill of this.allDrillsLog) {
-			if (aDrill.isGoalReached()) {
-				passedDrills["Time: " + aDrill.time] = aDrill.calculateSpeed() + "kph"
-			}
-		}
-		return passedDrills;
-	}
-
-	findTrainingDrill(targetDrillStartTime) {
-		this.sortDrills();
-		let foundDrill = null;
-		for (const aDrill of this.allDrillsLog) {
-			if (aDrill.time === targetDrillStartTime) {
-				foundDrill = aDrill;
-				break;
-			}
-		}
-		return foundDrill;
-	}
-
-	removeDrill(targetDrillStartTime) { // Time
-		const isPresent = this.findTrainingDrill(targetDrillStartTime) !== null;
-		let result = null;
-		if (isPresent) {
-			const index = this.allDrillsLog.indexOf(targetDrillStartTime);
-			this.allDrillsLog.splice(index, 1);
-			this.drillCount -= 1;
-			result = this.allDrillsLog;
-		}
-		return result;
-	}
-//!
-	calculateAvgSpeed() { // Kph //by dates
-		let cumulativeSpeed = 0;
-		for (const aDrill of this.allDrillsLog) {
-			cumulativeSpeed += aDrill.calculateSpeed();
-		}
-		return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
-	}
-
-	isGoalReached() {
-		return this.calculateSpeed() >= this.targetSpeed
-	}
-
-	updateDrill(startTime, keyItem, valueReplacement) {
-		const aDrill = this.findTrainingDrill(startTime);
-		aDrill[keyItem] = parseFloat(valueReplacement.toFixed(2));
-		return this.allDrillsLog;
-	}
+    removeDrill(targetDrillStartTime) {
+        const targetItem = this.findTrainingDrill(targetDrillStartTime)
+        const isPresent = targetItem !== null
+        if (isPresent) {
+            const index = this.allDrillsLog.indexOf(targetItem)
+            this.allDrillsLog.splice(index, 1)
+            this.drillCount -= 1
+            return this.allDrillsLog
+        }
+        return null
+    }
 }

@@ -1,6 +1,6 @@
 {
   "name": "triathlon-app",
-  "version": "1.3.1",
+  "version": "1.4.0",
   "description": "A web application built with **React JS / TypeScript** to help triathletes track and analyze their training across swimming, cycling, and running. Designed for both casual enthusiasts and competitive athletes to log sessions, monitor progress, and visualize performance trends.",
   "main": "index.js",
   "directories": {
