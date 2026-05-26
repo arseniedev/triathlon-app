@@ -113,7 +113,6 @@ describe('Training logs', () => {
 			const arraySize = theTraining.allDrillsLog.length;
 			expect(arraySize).toBe(4);
 		});
-		//  TODO elaborate
 		test('should have working sorter', () => {
 			theTraining.sortDrills();
 			const actual = theTraining.allDrillsLog[0].time;

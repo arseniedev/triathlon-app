@@ -1,4 +1,4 @@
-export default class Storage {
+export class Storage {
 	saveDrillToStorage(drill) {
 		window.localStorage.setItem('time', JSON.stringify(drill.time));
 		window.localStorage.setItem('swimTime', JSON.stringify(drill.swimTime));

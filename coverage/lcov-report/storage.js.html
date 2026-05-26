@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -99,70 +99,70 @@
 <a name='L34'></a><a href='#L34'>34</a>
 <a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export default class Storage {
-<span class="fstat-no" title="function not covered" >	sa</span>veDrillToStorage(drill) {
-<span class="cstat-no" title="statement not covered" >		window.localStorage.setItem('time', JSON.stringify(drill.time));</span>
-<span class="cstat-no" title="statement not covered" >		window.localStorage.setItem('swimTime', JSON.stringify(drill.swimTime));</span>
-<span class="cstat-no" title="statement not covered" >		window.localStorage.setItem('runTime', JSON.stringify(drill.runTime));</span>
-<span class="cstat-no" title="statement not covered" >		window.localStorage.setItem('bikeTime', JSON.stringify(drill.bikeTime));</span>
-<span class="cstat-no" title="statement not covered" >		return localStorage;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export class Storage {
+	saveDrillToStorage(drill) {
+		window.localStorage.setItem('time', JSON.stringify(drill.time));
+		window.localStorage.setItem('swimTime', JSON.stringify(drill.swimTime));
+		window.localStorage.setItem('runTime', JSON.stringify(drill.runTime));
+		window.localStorage.setItem('bikeTime', JSON.stringify(drill.bikeTime));
+		return localStorage;
 	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >	sa</span>veTrainingToStorage(training) {
-<span class="cstat-no" title="statement not covered" >		window.localStorage.setItem('date', JSON.stringify(training.date));</span>
-<span class="cstat-no" title="statement not covered" >		window.localStorage.setItem('location', JSON.stringify(training.location));</span>
-<span class="cstat-no" title="statement not covered" >		return localStorage;</span>
+	saveTrainingToStorage(training) {
+		window.localStorage.setItem('date', JSON.stringify(training.date));
+		window.localStorage.setItem('location', JSON.stringify(training.location));
+		return localStorage;
 	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >	lo</span>adLocalStorage(key) {
-		let data = <span class="cstat-no" title="statement not covered" >window.localStorage.getItem(key);</span>
-<span class="cstat-no" title="statement not covered" >		data = JSON.parse(data);</span>
-<span class="cstat-no" title="statement not covered" >		return data;</span>
+	loadLocalStorage(key) {
+		let data = window.localStorage.getItem(key);
+		data = JSON.parse(data);
+		return data;
 	}
 &nbsp;
-<span class="fstat-no" title="function not covered" >	lo</span>adAllLocalStorage() {
-		const allItems = <span class="cstat-no" title="statement not covered" >{};</span>
-		const keys = <span class="cstat-no" title="statement not covered" >['date', 'location', 'time', 'swimTime', 'runTime', 'bikeTime'];</span>
-<span class="cstat-no" title="statement not covered" >		for (const aKey of keys) {</span>
-			const data = <span class="cstat-no" title="statement not covered" >window.localStorage.getItem(aKey);</span>
-<span class="cstat-no" title="statement not covered" >			if (data !== null) {</span>
-				const serialized_value = <span class="cstat-no" title="statement not covered" >JSON.parse(data);</span>
-<span class="cstat-no" title="statement not covered" >				allItems[aKey] = serialized_value;</span>
+	loadAllLocalStorage() {
+		const allItems = {};
+		const keys = ['date', 'location', 'time', 'swimTime', 'runTime', 'bikeTime'];
+		for (const aKey of keys) {
+			const data = window.localStorage.getItem(aKey);
+			if (data !== null) {
+				const serialized_value = JSON.parse(data);
+				allItems[aKey] = serialized_value;
 			}
 		}
-<span class="cstat-no" title="statement not covered" >		return allItems;</span>
+		return allItems;
 	}
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -172,7 +172,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-26T00:42:00.918Z
+                at 2026-05-26T00:48:08.934Z
             </div>
         <script src="prettify.js"></script>
         <script>

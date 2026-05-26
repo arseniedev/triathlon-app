@@ -2,8 +2,7 @@ import { Storage } from './storage.js';
 import { TrainingDrill } from './drill.js';
 
 export class Training {
-	constructor(newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
-	// constructor(newDate = new Date(), newLocation = "Unknown") {
+	constructor(newDate = new Date(), newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
 		this.date = newDate;
 		this.location = newLocation;
 		this.distance = kmDistanceRequirement
@@ -16,7 +15,6 @@ export class Training {
 		const newDrill = new TrainingDrill(newDateTime, newSwimmingDuration, newRunningDuration, newCyclingDuration);
 		this.drillCount += 1;
 		this.allDrillsLog.push(newDrill);
-		// Storage.saveDrillToStorage(newDrill)
 	}
 
 	toString() {
@@ -46,25 +44,25 @@ export class Training {
 		});
 	}
 
-	// formatDate() {
-	// 	const d = this.date;
-	// 	const months = [
-	// 		'January',
-	// 		'February',
-	// 		'March',
-	// 		'April',
-	// 		'May',
-	// 		'June',
-	// 		'July',
-	// 		'August',
-	// 		'September',
-	// 		'October',
-	// 		'November',
-	// 		'December',
-	// 	];
-	// 	const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-	// 	return result;
-	// }
+	formatDate() {
+		const d = this.date;
+		const months = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'October',
+			'November',
+			'December',
+		];
+		const result = `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
+		return result;
+	}
 
 	getGoalReach() {
 		this.sortDrills();
@@ -101,19 +99,17 @@ export class Training {
 		return result;
 	}
 //!
-	// calculateAvgSpeed() { // Kph //by dates
-	// 	let cumulativeSpeed = 0;
-	// 	for (const aDrill of this.allDrillsLog) {
-	// 		cumulativeSpeed += aDrill.calculateSpeed();
-	// 	}
-	// 	return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
-	// }
+	calculateAvgSpeed() { // Kph //by dates
+		let cumulativeSpeed = 0;
+		for (const aDrill of this.allDrillsLog) {
+			cumulativeSpeed += aDrill.calculateSpeed();
+		}
+		return parseFloat((cumulativeSpeed / this.drillCount).toFixed(2));
+	}
 
-//!
-	// isGoalReached() {
-	// 	// const targetSpeed = 37.16
-	// 	return this.calculateSpeed() >= this.targetSpeed
-	// }
+	isGoalReached() {
+		return this.calculateSpeed() >= this.targetSpeed
+	}
 
 	updateDrill(startTime, keyItem, valueReplacement) {
 		const aDrill = this.findTrainingDrill(startTime);
