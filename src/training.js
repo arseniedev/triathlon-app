@@ -1,9 +1,7 @@
-/* triathlon 1.1 */
+import { Storage } from './storage.js';
+import { TrainingDrill } from './drill.js';
 
-import Storage from './storage';
-import TrainingDrill from './drill';
-
-export default class Training {
+export class Training {
 	constructor(newLocation, kmDistanceRequirement = 26.55, targetSpeed = 37.16) {
 		this.location = newLocation;
 		this.distance = kmDistanceRequirement

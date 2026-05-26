@@ -1,9 +1,5 @@
-/* triathlon 1.1 */
-/* eslint linebreak-style: ["error", "unix"] */
-// /*** @jest-environment jsdom */
-
-import Training from '../src/training'; // Whole
-import TrainingDrill from '../src/drill'; // Part
+import { TrainingDrill } from '../src/drill.js';
+import { Training } from '../src/training.js';
 
 describe('Training logs', () => {
 	let theTraining;

@@ -3,7 +3,7 @@
 /* eslint semi: ["error", "never"] */
 /* globals */
 
-export default class TrainingDrill {
+export class TrainingDrill {
 	// Supersprint
 	// ? to def or not
 	// duration = 0.0
