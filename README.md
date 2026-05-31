@@ -65,26 +65,12 @@ npm start
 ```text
 .
 ├── README.md
-├── babel.config.js
-├── coverage
-│   ├── clover.xml
-│   ├── coverage-final.json
-│   ├── lcov-report
-│   └── lcov.info
 ├── document
 │   ├── triathlon_class_diagram.pdf
 │   └── triathlon_package_diagram.pdf
-├── jest.config.js
-├── package.json
-├── src
-│   ├── athlete.js
-│   └── triathlon.js
-├── structure.txt
-└── test
-    ├── athlete_specs
-    └── triathlon_specs
+└── structure.txt
 
-8 directories, 12 files
+2 directories, 4 files
 ```
 <!-- END_STRUCTURE -->
 
