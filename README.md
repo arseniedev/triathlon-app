@@ -71,9 +71,6 @@ npm start
 │   ├── coverage-final.json
 │   ├── lcov-report
 │   └── lcov.info
-├── document
-│   ├── triathlon_class_diagram.pdf
-│   └── triathlon_package_diagram.pdf
 ├── jest.config.js
 ├── package.json
 ├── src
@@ -84,7 +81,7 @@ npm start
     ├── athlete_specs
     └── triathlon_specs
 
-8 directories, 12 files
+7 directories, 10 files
 ```
 <!-- END_STRUCTURE -->
 
