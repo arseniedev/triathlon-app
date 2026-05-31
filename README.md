@@ -63,17 +63,29 @@ npm start
 
 <!-- START_STRUCTURE -->
 ```text
-src/
-├─ components/      # Reusable UI components
-├─ pages/           # Route-level pages
-├─ context/         # State management (React Context / Redux)
-├─ hooks/           # Custom React hooks
-├─ types/           # TypeScript interfaces & types
-├─ utils/           # Helper functions
-├─ assets/          # Images, icons, and other assets
-└─ App.tsx          # Main App component
-```
+.
+├── README.md
+├── babel.config.js
+├── coverage
+│   ├── clover.xml
+│   ├── coverage-final.json
+│   ├── lcov-report
+│   └── lcov.info
+├── document
+│   ├── triathlon_class_diagram.pdf
+│   └── triathlon_package_diagram.pdf
+├── jest.config.js
+├── package.json
+├── src
+│   ├── athlete.js
+│   └── triathlon.js
+├── structure.txt
+└── test
+    ├── athlete_specs
+    └── triathlon_specs
 
+8 directories, 12 files
+```
 <!-- END_STRUCTURE -->
 
 ## Future Improvements
