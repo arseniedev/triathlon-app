@@ -35,9 +35,6 @@
 
 ## Installation
 
-**Prequisites:**
-
-
 1. Clone the repository:  
 
    ```bash
@@ -51,21 +48,8 @@ npm install
 
 3. Start the development server:
 ```
-npm run dev
+npm start
 ```
-
-4. If Privacy Error Occurs:
-
-- Create your crt and key
-
-
-```Git Bash
-openssl genrsa -out localhost.key 2048
-openssl req -new -x509 -key security/localhost.key -out security/localhost.crt -days 365 -subj "//CN=localhost"
-```
-
-
-npx http-server -S -C security/localhost.crt -K security/localhost.key
 
 ---
 
@@ -76,7 +60,9 @@ npx http-server -S -C security/localhost.crt -K security/localhost.key
 4. Set goals and view charts to monitor your progress.
 
 ## Folder Structure
-```
+
+<!-- START_STRUCTURE -->
+```text
 src/
 ├─ components/      # Reusable UI components
 ├─ pages/           # Route-level pages
@@ -87,6 +73,8 @@ src/
 ├─ assets/          # Images, icons, and other assets
 └─ App.tsx          # Main App component
 ```
+
+<!-- END_STRUCTURE -->
 
 ## Future Improvements
 - Integration with external APIs (e.g., Strava, Garmin)
