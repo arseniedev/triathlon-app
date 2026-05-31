@@ -63,17 +63,64 @@ npm start
 
 <!-- START_STRUCTURE -->
 ```text
-src/
-├─ components/      # Reusable UI components
-├─ pages/           # Route-level pages
-├─ context/         # State management (React Context / Redux)
-├─ hooks/           # Custom React hooks
-├─ types/           # TypeScript interfaces & types
-├─ utils/           # Helper functions
-├─ assets/          # Images, icons, and other assets
-└─ App.tsx          # Main App component
-```
+.
+├── Data
+│   ├── athlete_model.js
+│   ├── database.js
+│   ├── timer_model.js
+│   └── triathlon_model.js
+├── Presentation
+│   ├── form_view.js
+│   ├── triathlon_view.js
+│   └── triathlon_viewmodel.js
+├── README.md
+├── babel.config.js
+├── coverage
+│   ├── clover.xml
+│   ├── lcov-report
+│   └── lcov.info
+├── eslint.config.mjs
+├── index-patch-1.html
+├── index.html
+├── index.js
+├── jest.config.js
+├── note.txt
+├── package.json
+├── public
+│   └── index.html
+├── snips
+│   ├── drill_time.js
+│   └── localStorage.js
+├── src
+│   ├── Components
+│   ├── Model
+│   ├── Storage
+│   ├── View
+│   ├── ViewModel
+│   ├── athlete.js
+│   ├── controller.js
+│   ├── cycling.js
+│   ├── drill.js
+│   ├── index.js
+│   ├── running.js
+│   ├── services
+│   ├── storage.js
+│   ├── swimming.js
+│   ├── training.js
+│   ├── training_session.js
+│   ├── triathlon.js
+│   ├── triathlon_DB.js
+│   ├── view.js
+│   └── viewmodels
+├── structure.txt
+└── test
+    ├── constants
+    ├── mocks
+    ├── specs
+    └── training.test.js
 
+19 directories, 36 files
+```
 <!-- END_STRUCTURE -->
 
 ## Future Improvements
