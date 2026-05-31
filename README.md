@@ -60,7 +60,9 @@ npm start
 4. Set goals and view charts to monitor your progress.
 
 ## Folder Structure
-```
+
+<!-- START_STRUCTURE -->
+```text
 src/
 ├─ components/      # Reusable UI components
 ├─ pages/           # Route-level pages
@@ -72,62 +74,14 @@ src/
 └─ App.tsx          # Main App component
 ```
 
-## MVVM
+<!-- END_STRUCTURE -->
 
-```text
-+-------------+          +-------------+          +------------------+
-|    View     | <------> |  ViewModel  | <------> |      Model       |
-| (UI/Pages)  |  Binding | (State &    |          | (Business Logic) |
-|             |          | Commands)   |          |                  |
-+-------------+          +-------------+          +------------------+
-                                 |
-                                 |
-                     +-----------+-----------+
-                     |                       |
-                     v                       v
-            +----------------+      +----------------+
-            |  Local Storage |      |   IndexedDB    |
-            |                |      |                |
-            | - Preferences  |      | - Large Data   |
-            | - Theme        |      | - Offline Data |
-            | - Tokens       |      | - Cached Data  |
-            +----------------+      +----------------+
-```
-
-
-```
-User
- |
- v
-+--------+
-|  View  |
-+--------+
-     |
-     | User Action
-     v
-+-------------+
-| ViewModel   |
-+-------------+
-     |
-     | Read/Write State
-     v
-+-------------+
-|   Model     |
-+-------------+
-     |
-     +--------------------+
-     |                    |
-     v                    v
-+-------------+    +-------------+
-|LocalStorage |    |  IndexedDB  |
-+-------------+    +-------------+
-     |                    |
-     +--------+-----------+
-              |
-              v
-         Persist Data
-
-```
+## Future Improvements
+- Integration with external APIs (e.g., Strava, Garmin)
+- User authentication & profile management
+- Export training data to CSV or PDF
+- Mobile app version with React Native
+- Automated unit and integration testing with Jest and React Testing Library, with potential CI integration
 
 ---
 
