@@ -1,94 +1,154 @@
+/*
+ViewModel: Acts as an intermediary between the View and the Model. It manages 
+the state and operations related to the calculator.
+*/
 
 export default class TriathlonViewModel {
-	constructor(triathlon, timer) {
-		this.triathlon = triathlon;
-		this.timer = timer;
-		this.container = [];
-		this.timerState = false;
-		this.category = ['Swim', 'Bike', 'Run'];
-		this.button = 'Play';
-		this.seconds = '00:00:00';
+  constructor(triathlon, timer) {
+    this.triathlon = triathlon
+    this.timer = timer
 
-		this.init = this.init.bind(this);
-		this.clear = this.clear.bind(this);
-		this.cache = this.cache.bind(this);
-		this.submit = this.submit.bind(this);
-		this.display = this.display.bind(this);
-		this.click = this.click.bind(this);
-		this.search = this.search.bind(this);
-	}
+    this.timerState= false
+    this.category = ["Swim", "Bike", "Run"]
+    this.container = []
+    this.allValid = {}
 
-	click(action) {
-		console.log(action);
-		return {};
-	}
+    this.button = "Play"
+    this.seconds = "00:00:00"
 
-	init() {
-		this.altButton();
-		return this.timerHandler();
-	}
+    this.init = this.init.bind(this)
+    this.clear = this.clear.bind(this)
 
-	clear() {
-		this.timerState = false;
-		this.container = [];
-		this.seconds = this.timer.reset();
-		return this.seconds;
-	}
+    this.cache = this.cache.bind(this)
+    this.submit = this.submit.bind(this)
+    this.display = this.display.bind(this)
+    this.search = this.search.bind(this)
+    this.validate = this.validate.bind(this)
+    this.delete = this.delete.bind(this)
+  }
 
-	cache() {
-		const index = this.container.length;
-		const duration = this.timerHandler().elapsed;
-		const button = this.timerHandler().button;
+  // validate(field, value) {
+  //   let result = {}
+  //   let isValid = false
+    
+  //   if(field ==='id'){
+  //     isValid = this.triathlon.findAthlete(value) === null
+  //   } else if (field ==='firstname') {
+  //     isValid = /^[A-Za-z]+$/.test(value)
+  //   }
+  //   result[field] =  isValid ? 'Valid' : 'Please provide unique ID'
+  //   this.allValid[field] = isValid
 
-		if (index === 3) {
-			this.seconds = this.timer.pause();
-			return this.setState(index, duration, button, true);
-		}
+  //   return [result,this.altClickable()]
+  // }
 
-		return this.setState(index, duration, button, false);
-	}
+  clickable() {
+    let test = this.allValid.id && this.allValid.firstname
+    // console.log(test)
+    return test
+  }
 
-	setState(index, duration, button, status) {
-		const output = {
-			category: this.category[index],
-			time: duration,
-			complete: status,
-			button,
-		};
-		this.container.push(output);
-		return output;
-	}
+  validate(field, value) {
+    let result = {}
+    let isValid = false
 
-	altButton() {
-		this.timerState = !this.timerState;
-	}
+    if(field ==='id'){
+      isValid = this.triathlon.findAthlete(value) === null
+      result[field] =  isValid ? 'Valid' : 'Please provide unique ID'
+      this.allValid[field] = isValid
+    } else if (field ==='firstname') {
+      isValid = /^[A-Za-z]+$/.test(value)
+      result[field] =  isValid ? 'Valid' : 'Input must contain only letters, no special characters or numbers.'
+      this.allValid[field] = isValid
+    }
+    return {prompt:result, readyToSave:this.clickable()}
+  }
 
-	timerHandler() {
-		if (this.timerState) {
-			this.button = 'Pause';
-			this.seconds = this.timer.start();
-		} else {
-			this.button = 'Play';
-			this.seconds = this.timer.pause();
-		}
-		return { button: this.button, elapsed: this.seconds };
-	}
+  init() {
+    this.altButton()
+    return this.timerHandler()
+  }
 
-	display() {
-		return this.triathlon.loadFromLocalStorage();
-	}
+  clear() {
+    this.timerState = false
+    return this.timerHandler(true)
+  }
 
-	search(targetID) {
-		console.log(this.triathlon.allMyAthletes, targetID);
-	}
+  cache() {
+    let output// = {}
+    let container = this.timer.allCacheDuration
+    let index = container.length
 
-	submit(event) {
-		event.preventDefault();
-		const form = document.getElementById('athlete-form');
-		const out = this.triathlon.handleForm(form, this.container);
-		form.reset();
-		this.container = [];
-		this.timerState = false;
-		return out;
-	}
+    let duration = this.timerHandler().elapsed
+    let button = this.timerHandler().button
+
+    if (index === 2) {
+      output = this.consolidate(index, duration, button, true)
+      this.timer.reset()
+      this.container = container
+    }
+
+    else {
+      output = this.consolidate(index, duration, button, false)
+    }
+    return output
+  }
+
+  consolidate(index, duration, button, status) {
+    let output = {}
+    output['category']= this.category[index]
+    output['time']= duration
+    output['complete']= status
+    output['button']= button
+    let result = this.timer.cacheTime(output)
+    return result
+  }
+
+  altButton() {
+    let newState = !this.timerState
+    this.timerState = newState
+  }
+
+  timerHandler(cleared=false) {
+    if(cleared){
+      this.button = "Play"
+      this.seconds = this.timer.reset()
+    } else {
+      if (this.timerState) {
+        this.button = "Pause"
+        this.seconds = this.timer.start()
+      }
+      else {
+        this.button = "Play"
+        this.seconds = this.timer.pause()
+      }
+    }
+    return ({button:this.button, elapsed:this.seconds})
+  }
+
+  search(value) {
+    if (!value|| value === "-") return "-"
+    let query = this.triathlon.findAthlete(value)
+    return query === null ? 
+      "No athlete found": 
+      `Athlete Found: [${query.id}] ${query.firstname} ${query.lastname}`
+  }
+
+  display() {
+    return this.triathlon.loadFromLocalStorage()
+  }
+
+  submit() {
+    let form = document.getElementById('athlete-form')
+    let timers = this.container
+    let output = this.triathlon.handleForm(form, timers)
+    this.triathlon.saveToLocalStorage(output)
+    form.reset()
+
+    return output
+  }
+
+  delete(id) {
+    return this.triathlon.deleteAthlete(id)
+  }
 }

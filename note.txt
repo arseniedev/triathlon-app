@@ -1,0 +1,8 @@
+Separated MVVM with IndexDB
+separated components
+Functional
+1. Save & Load LS
+2. Sorting
+3. Deleting
+4. Validating
+5. Show/Hide
