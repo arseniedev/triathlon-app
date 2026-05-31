@@ -12,6 +12,10 @@ export default function AthleteForm({onDiscard, onSave, onCheck}) {
   const [seen, setSeen] = useState(false)
   const [clickable, setClickable] = useState(false)
 
+  const defaultValues = {
+
+  }
+
   const handleAddButtonClick = () => {
     setSeen(true)
   }
