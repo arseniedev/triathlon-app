@@ -65,12 +65,9 @@ npm start
 ```text
 .
 ├── README.md
-├── document
-│   ├── triathlon_class_diagram.pdf
-│   └── triathlon_package_diagram.pdf
 └── structure.txt
 
-2 directories, 4 files
+1 directory, 2 files
 ```
 <!-- END_STRUCTURE -->
 
