@@ -1,14 +1,17 @@
 {
-  "name": "my-react-app",
+  "name": "triathlon-app",
+  "description": "A web application built with **React JS / TypeScript** to help triathletes track and analyze their training across swimming, cycling, and running. Designed for both casual enthusiasts and competitive athletes to log sessions, monitor progress, and visualize performance trends.",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "version": "1.4.0",
+  "type": "commonJS",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "transform": "babel src --out-dir dist"
+    "transform": "babel src --out-dir dist",
+    "test": "jest"
+    
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -19,23 +22,32 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.24.7",
-    "@babel/core": "^7.24.7",
-    "@babel/preset-env": "^7.24.7",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
+    "babel-jest": "^30.4.1",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
     "sass": "^1.77.4",
     "vite": "^5.2.0"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "vite.config.js",
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arseniedev/triathlon-app.git"
+  },
+  "author": "Arsenie Sarmiento",
+  "bugs": {
+    "url": "https://github.com/arseniedev/triathlon-app/issues"
+  },
+  "homepage": "https://github.com/arseniedev/triathlon-app#readme"
 }
