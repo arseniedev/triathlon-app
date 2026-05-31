@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Dependencies
-node_modules/
+**/node_modules/
 package-lock.json
 dist/
 dist-ssr/
@@ -36,7 +36,7 @@ dist-ssr/
 *.sw?
 
 # Testing
-/coverage
+**/coverage
 .nyc_output
 
 # Diagnostic reports (Next.js / Node.js)
