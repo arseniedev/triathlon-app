@@ -63,17 +63,48 @@ npm start
 
 <!-- START_STRUCTURE -->
 ```text
-src/
-├─ components/      # Reusable UI components
-├─ pages/           # Route-level pages
-├─ context/         # State management (React Context / Redux)
-├─ hooks/           # Custom React hooks
-├─ types/           # TypeScript interfaces & types
-├─ utils/           # Helper functions
-├─ assets/          # Images, icons, and other assets
-└─ App.tsx          # Main App component
-```
+.
+├── README.md
+├── app.webmanifest
+├── babel.config.json
+├── icon.jpg
+├── icon.png
+├── icons
+│   ├── icon183.jpg
+│   ├── icon200.png
+│   ├── icon512.png
+│   └── icon612.jpg
+├── index.html
+├── new-ui
+│   ├── README.md
+│   ├── babel.config.js
+│   ├── check-setup.js
+│   ├── coverage
+│   ├── index.html
+│   ├── jest.config.js
+│   ├── package.json
+│   ├── src
+│   ├── test
+│   └── verify-implementation.js
+├── package.json
+├── public
+│   └── vite.svg
+├── src
+│   ├── App.css
+│   ├── App.jsx
+│   ├── assets
+│   ├── components
+│   ├── index.css
+│   ├── main.jsx
+│   ├── model
+│   ├── view
+│   └── viewmodel
+├── structure.txt
+├── triathlon_service_worker.js
+└── vite.config.js
 
+13 directories, 26 files
+```
 <!-- END_STRUCTURE -->
 
 ## Future Improvements
