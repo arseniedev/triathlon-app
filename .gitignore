@@ -43,3 +43,5 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 # OS files
 .DS_Store
 Thumbs.db
+
+package-lock.json
