@@ -48,8 +48,8 @@ Thumbs.db
 
 
 # Security
-*.key
-*.crt
-*.der
-*.cer
-*.cnf
+**/*.key
+**/*.crt
+**/*.der
+**/*.cer
+**/*.cnf
