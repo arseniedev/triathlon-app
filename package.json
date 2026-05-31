@@ -1,32 +1,53 @@
 {
   "name": "triathlon-app",
-  "version": "1.4.0",
   "description": "A web application built with **React JS / TypeScript** to help triathletes track and analyze their training across swimming, cycling, and running. Designed for both casual enthusiasts and competitive athletes to log sessions, monitor progress, and visualize performance trends.",
-  "main": "index.js",
+  "private": true,
+  "version": "1.4.0",
+  "type": "commonJS",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "transform": "babel src --out-dir dist",
+    "test": "jest"
+    
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "http-server": "^14.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.5",
+    "@babel/preset-react": "^7.24.7",
+    "@babel/preset-typescript": "^7.24.7",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "babel-jest": "^30.4.1",
+    "jest": "^30.4.2",
+    "jest-environment-jsdom": "^30.4.1",
+    "sass": "^1.77.4",
+    "vite": "^5.2.0"
+  },
+  "main": "vite.config.js",
+  "keywords": [],
+  "license": "ISC",
   "directories": {
     "test": "test"
-  },
-  "scripts": {
-    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arseniedev/triathlon-app.git"
   },
-  "keywords": [],
   "author": "Arsenie Sarmiento",
-  "license": "ISC",
-  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/arseniedev/triathlon-app/issues"
   },
-  "homepage": "https://github.com/arseniedev/triathlon-app#readme",
-  "devDependencies": {
-    "@babel/core": "^7.29.0",
-    "@babel/preset-env": "^7.29.5",
-    "babel-jest": "^30.4.1",
-    "eslint": "^10.4.0",
-    "jest": "^30.4.2",
-    "jest-environment-jsdom": "^30.4.1"
-  }
+  "homepage": "https://github.com/arseniedev/triathlon-app#readme"
 }

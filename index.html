@@ -3,52 +3,44 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triathlon App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Triathlon - MVVM & IndexedDB</title>
+    <!-- STYLESHEET BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script crossorigin="anonymous" src="https://unpkg.com/react@18/umd/react.development.js">
+    </script>
+    <script crossorigin="anonymous" src="https://unpkg.com/react-dom@18/umd/react-dom.development.js">
+    </script>
+
+    <!-- Don't use this in production. It does a slow runtime code transformation -->
+    <script crossorigin="anonymous" src="https://unpkg.com/@babel/standalone/babel.min.js">
+    </script>
 </head>
 
 <body>
-    <script type="module">
-        import { Storage } from './src/storage.js';
-        let storage = new Storage()
+    <!-- the View -->
+    <div class="m-5" id="app">
+    </div>
 
-        //drill saving test data
-        let drill = {
-            time: "12:01",
-            swimTime: 19.17,
-            runTime: 321, 
-            bikeTime: 2455
-        }
-        storage.saveDrillToStorage(drill)
+    <!-- 
+    Applying the module to your HTML file
+    https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules#applying_the_module_to_your_html
+    https://babeljs.io/docs/babel-plugin-transform-modules-umd
+    --> 
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./Data/database.js"></script>
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./Data/timer_model.js"></script>
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./Data/athlete_model.js"></script>
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./Data/triathlon_model.js"></script>
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./Presentation/triathlon_view.js"></script>
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./Presentation/triathlon_viewmodel.js"></script>
+    
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./index.js"></script>
 
-        let training = {
-            date: "March 13, 2024",
-            location: "Evelyn Hugo Sports Centre"
-        }
-        storage.saveTrainingToStorage(training)
-
-        // training loading test sample
-        let index = 0
-        let keys = ['date','location']
-        for (let key of keys) {
-            let result = storage.loadLocalStorage(key) 
-            console.log(keys[index] + ": " + result)
-            index ++
-        }
-
-        // drill loading test sample
-        index = 0
-        keys = ['time','swimTime','runTime', 'bikeTime']
-        for (let key of keys) {
-            let result = storage.loadLocalStorage(key) 
-            console.log(keys[index] + ": " + result)
-            index ++
-        }
-
-        // Loading both training and drills
-        const allData = storage.loadAllLocalStorage() 
-        console.log(allData)
-    </script>
 </body>
 
 </html>
