@@ -9,6 +9,7 @@ lerna-debug.log*
 
 # Dependencies
 node_modules/
+package-lock.json
 dist/
 dist-ssr/
 *.local
@@ -44,4 +45,8 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 .DS_Store
 Thumbs.db
 
-package-lock.json
+
+# Security
+*.key
+*.crt
+*.der
