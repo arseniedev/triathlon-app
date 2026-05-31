@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triathlon Training App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .storage-selector {
+            margin-bottom: 30px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .storage-selector label {
+            margin-right: 15px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .storage-selector select {
+            padding: 8px 12px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            background: white;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            border: 2px solid #eee;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.2);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            margin-top: 10px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            padding: 8px 12px;
+            font-size: 0.9em;
+            width: auto;
+        }
+
+        .info-display {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .info-value {
+            color: #333;
+        }
+
+        .drills-list {
+            margin-top: 20px;
+        }
+
+        .drill-item {
+            background: #f9f9f9;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .drill-info {
+            flex: 1;
+        }
+
+        .drill-time {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .drill-details {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .drill-actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .goal-reach {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .goal-reach.failed {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .results-section {
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🏊 Triathlon Training Tracker</h1>
+            <p class="subtitle">Track your swimming, cycling, and running progress</p>
+        </header>
+
+        <div class="storage-selector">
+            <label for="storageType">Storage Type:</label>
+            <select id="storageType">
+                <option value="localStorage">LocalStorage</option>
+                <option value="indexedDB">IndexedDB</option>
+            </select>
+        </div>
+
+        <div class="main-content">
+            <div class="section">
+                <h2>New Training Session</h2>
+                <div class="form-group">
+                    <label for="trainingDate">Date:</label>
+                    <input type="date" id="trainingDate">
+                </div>
+                <div class="form-group">
+                    <label for="trainingLocation">Location:</label>
+                    <input type="text" id="trainingLocation" placeholder="e.g., Central Park">
+                </div>
+                <button onclick="createTraining()">Create Training Session</button>
+            </div>
+
+            <div class="section">
+                <h2>Add Training Drill</h2>
+                <div class="form-group">
+                    <label for="drillTime">Time (HH:MM):</label>
+                    <input type="time" id="drillTime">
+                </div>
+                <div class="form-group">
+                    <label for="swimTime">Swimming Duration (seconds):</label>
+                    <input type="number" id="swimTime" placeholder="0.0" step="0.1" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="runTime">Running Duration (seconds):</label>
+                    <input type="number" id="runTime" placeholder="0.0" step="0.1" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="bikeTime">Cycling Duration (seconds):</label>
+                    <input type="number" id="bikeTime" placeholder="0.0" step="0.1" min="0">
+                </div>
+                <button onclick="addDrill()">Add Drill</button>
+            </div>
+
+            <div class="section">
+                <h2>Training Information</h2>
+                <div id="trainingInfo" class="info-display">
+                    <div class="info-row">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value" id="infoDate">Not set</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Location:</span>
+                        <span class="info-value" id="infoLocation">Not set</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Drill Count:</span>
+                        <span class="info-value" id="infoDrillCount">0</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Distance Target (km):</span>
+                        <span class="info-value" id="infoDistance">26.55</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Speed Target (kph):</span>
+                        <span class="info-value" id="infoTargetSpeed">37.16</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Average Speed:</span>
+                        <span class="info-value" id="infoAvgSpeed">0 kph</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Drills List</h2>
+                <div id="drillsList" class="drills-list">
+                    <p style="color: #999; text-align: center;">No drills added yet</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section section">
+            <h2>Performance Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Drills</div>
+                    <div class="stat-value" id="statDrillCount">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Avg Speed</div>
+                    <div class="stat-value" id="statAvgSpeed">0</div>
+                    <div class="stat-label">kph</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Goal Status</div>
+                    <div class="stat-value" id="statGoalStatus">❌</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Target Speed</div>
+                    <div class="stat-value" id="statTargetSpeed">37.16</div>
+                    <div class="stat-label">kph</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { TrainingViewModel } from './src/TrainingViewModel.js';
+        import { Storage } from './src/storage.js';
+
+        let viewModel = null;
+        let storage = null;
+
+        function initializeApp() {
+            const storageType = document.getElementById('storageType').value;
+            viewModel = new TrainingViewModel();
+            storage = new Storage(storageType);
+
+            viewModel.subscribe(updateUI);
+            updateUI(viewModel.getState());
+
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('trainingDate').value = today;
+        }
+
+        window.createTraining = function() {
+            const dateStr = document.getElementById('trainingDate').value;
+            const location = document.getElementById('trainingLocation').value || 'Unknown';
+
+            if (!dateStr) {
+                alert('Please select a date');
+                return;
+            }
+
+            const date = new Date(dateStr);
+            viewModel = new TrainingViewModel(date, location);
+            viewModel.subscribe(updateUI);
+            viewModel.saveTrainingToStorage();
+
+            document.getElementById('trainingLocation').value = '';
+            updateUI(viewModel.getState());
+        };
+
+        window.addDrill = function() {
+            const timeStr = document.getElementById('drillTime').value;
+            const swimTime = parseFloat(document.getElementById('swimTime').value) || 0;
+            const runTime = parseFloat(document.getElementById('runTime').value) || 0;
+            const bikeTime = parseFloat(document.getElementById('bikeTime').value) || 0;
+
+            if (!timeStr) {
+                alert('Please enter a time');
+                return;
+            }
+
+            viewModel.addDrill(timeStr, swimTime, runTime, bikeTime);
+            viewModel.saveTrainingToStorage();
+
+            // Save drill data
+            storage.saveDrillToStorage({
+                time: timeStr,
+                swimTime: swimTime,
+                runTime: runTime,
+                bikeTime: bikeTime
+            });
+
+            // Clear form
+            document.getElementById('drillTime').value = '';
+            document.getElementById('swimTime').value = '';
+            document.getElementById('runTime').value = '';
+            document.getElementById('bikeTime').value = '';
+        };
+
+        window.removeDrill = function(time) {
+            if (confirm('Are you sure you want to remove this drill?')) {
+                viewModel.removeDrill(time);
+                updateUI(viewModel.getState());
+            }
+        };
+
+        function updateUI(state) {
+            if (!state || !state.trainingInfo) return;
+
+            const info = state.trainingInfo;
+
+            document.getElementById('infoDate').textContent = info.date || 'Not set';
+            document.getElementById('infoLocation').textContent = info.location || 'Not set';
+            document.getElementById('infoDrillCount').textContent = info.drillCount;
+            document.getElementById('infoDistance').textContent = info.distance;
+            document.getElementById('infoTargetSpeed').textContent = info.targetSpeed;
+            document.getElementById('infoAvgSpeed').textContent = info.drillCount > 0 ? `${info.avgSpeed} kph` : '0 kph';
+
+            // Update stats
+            document.getElementById('statDrillCount').textContent = info.drillCount;
+            document.getElementById('statAvgSpeed').textContent = info.drillCount > 0 ? info.avgSpeed : '0';
+            document.getElementById('statTargetSpeed').textContent = info.targetSpeed;
+            document.getElementById('statGoalStatus').textContent = info.isGoalReached ? '✅ Reached' : '❌ Not Reached';
+
+            // Update drills list
+            const drillsList = document.getElementById('drillsList');
+            if (state.drills && state.drills.length > 0) {
+                drillsList.innerHTML = state.drills.map(drill => `
+                    <div class="drill-item">
+                        <div class="drill-info">
+                            <div class="drill-time">🏊 ${drill.time}</div>
+                            <div class="drill-details">
+                                Swim: ${drill.swimTime.toFixed(2)}s | Run: ${drill.runTime.toFixed(2)}s | Bike: ${drill.bikeTime.toFixed(2)}s
+                                <br>Duration: ${drill.calculateTotalDuration().toFixed(2)} hrs | Speed: ${drill.calculateSpeed(info.distance).toFixed(2)} kph
+                            </div>
+                        </div>
+                        <button class="btn-danger" onclick="removeDrill('${drill.time}')">Remove</button>
+                    </div>
+                `).join('');
+            } else {
+                drillsList.innerHTML = '<p style="color: #999; text-align: center;">No drills added yet</p>';
+            }
+        }
+
+        document.getElementById('storageType').addEventListener('change', initializeApp);
+
+        // Initialize on load
+        initializeApp();
+    </script>
+</body>
+
+</html>
