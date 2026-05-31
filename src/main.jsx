@@ -8,5 +8,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <div className="d-flex row m-4">
         <App/>
     </div>
-  </React.StrictMode>
+  </React.StrictMode>,
 )

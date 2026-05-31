@@ -21,16 +21,12 @@ export default function EditForm({onEdit}) {
         <div className = "container d-flex">
             <div className="col-4 m-2 mx-4 row form-element">
               <select className="form-select" aria-label="Default select example" id="targetField" name="targetField">
-                {/* <option selected>Target Field</option> */}
                 <option defaultValue="1" name="firstName">First Name</option>
                 <option defaultValue="2" name="lastName">Last Name</option>
               </select>
-                {/* <label className="form-label col-sm-6" htmlFor="targetField">Target Field</label> */}
-                {/* <input type="text"  className="col-sm-6" id="targetField" name="targetField" placeholder="Enter first name" required/> */}
             </div>
 
             <div className="col-8 form-element m-2 row">
-                {/* <label className="form-label col-sm-3" htmlFor="newValue">New Value</label> */}
                 <input type="text"  className="col-sm-9 mx-4" id="newValue" name="newValue" placeholder="Enter New Value"/>
             </div>        
         </div>

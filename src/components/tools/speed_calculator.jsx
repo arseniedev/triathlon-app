@@ -7,19 +7,7 @@ Calculator.propTypes = {
 }
 
 export default function Calculator({onCalculate, onAverage}) {
-    // const [average, setAverage] = useState("-")
-    // const [speed, setSpeed] = useState("-")
-
-    // const handleCalc = () => {
-        // let speedCal = onCalculate()
-        // setSpeed(speedCal)
-    // }
-
-    // let speed = onCalculate
-    // console.log(speed)
     let average = onAverage
-    // setAverage(onAverage)
-    
 
     return (
         <div className="row mt-4">

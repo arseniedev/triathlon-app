@@ -44,7 +44,6 @@ class TriathlonDB {
 		deleteRequest.onerror = function () {
 			console.error("An error occurred while deleting the database")
 		}
-    location.reload()
 	}
 
   storeAthlete = (athlete) => {
@@ -52,40 +51,6 @@ class TriathlonDB {
     const store = transaction.objectStore(this.athleteStore)
     store.add(athlete)
   }
-
-  // getAthletes(callback) {
-  //   console.log('called')
-  //   let request
-  //   let output
-
-  //   if(callback) {
-  //     const transaction = this.db.transaction([this.athleteStore], "readonly")
-  //     const store = transaction.objectStore(this.athleteStore)
-  //     request = store.getAll()
-  //     request.onsuccess = (event) => {
-  //       output = event.target.result
-  //       callback(output)
-
-  //     }
-  //   } else {
-  //     const transaction = this.db.transaction([this.athleteStore], "readonly")
-  //     const store = transaction.objectStore(this.athleteStore)
-  //       request = store.get(this.cache.key)
-  //       request.onsuccess = (event) => {
-  //         output = event.target.result
-  //         console.log(output[`${this.cache.field}`])
-  //         output['field'] = this.cache.field
-  //         output['value'] = output[`${this.cache.field}`]
-  //         callback(output)
-  //   }
-
-  //     return output
-  //   }
-
-  //   request.onerror = (event) => {
-  //     console.error("Error retrieving atheletes:", event.target.errorCode)
-  //   }
-  // }
 
   getAllAthletes(callback) {
     const transaction = this.db.transaction([this.athleteStore], "readonly")
@@ -102,6 +67,7 @@ class TriathlonDB {
 
     request.onerror = (event) => {
       console.error("Error retrieving athletes:", event.target.errorCode)
+      throw new Error("Error retrieving athletes:", event.target.errorCode)
     }
   }
 }

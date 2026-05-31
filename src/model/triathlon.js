@@ -14,6 +14,7 @@ export default class Triathlon {
 		this.distance = newDistance
 		this.replaceContainer = {}
 		this.cacheOldVal = {}
+		this.athleteCount = localStorage.length
 	}
 
 	editAthlete(data) {
@@ -49,21 +50,6 @@ export default class Triathlon {
 		this.db.deleteDatabase(name)
 	}
 
-	// getDatabaseEntry() {
-	// 	return this.db.getAllAthletes.bind(this.db)
-	// }
-
-	// getDatabaseEntry = (callback) => {
-	// 	console.log(this.db.getAllAthletes((callback)))
-	// 	// return this.db.getAllAthletes((callback))
-	// }
-	// applyChange(data) {
-	// 	let id = data.id
-	// 	let field = data.field
-	// 	let value = data.value
-	// 	this.replaceAthlete(id, field, value)
-	// }
-
 	addAthlete(data) {
 		let newId = data.id
 		let newFirstName = data.firstName 
@@ -71,8 +57,7 @@ export default class Triathlon {
 		let newSwim = data.swimTime
 		let newRun = data.runTime
 		let newBike = data.bikeTime
-		let newSpeed = this.calculateSpeed(this.timeToHours(newSwim), this.timeToHours(newRun), this.timeToHours(newBike))
-		let newAthlete = new Athlete(newId, newFirstName, newLastName, newSwim, newRun, newBike, newSpeed)
+		let newAthlete = new Athlete(newId, newFirstName, newLastName, newSwim, newRun, newBike, this)
 		this.allMyAthletes.push(newAthlete)
 	}
 
@@ -102,22 +87,31 @@ export default class Triathlon {
 		this.allMyAthletes.splice(targetId)
 		setTimeout(() => {
 			alert('Athlete has been removed from storage and database.')
-    }, 1000)
+		}, 1000)
+		this.incrementBadge()
 	}
 
-	calculateTotalSpeed(speedArray) {
-		let result = speedArray.reduce((a, b) => parseFloat(a) + parseFloat(b), 0)
-		result = parseFloat(result.toFixed(2))
-		return result
-	}
+	getSpeed(targetId) {
+		try {
+			if (targetId === null) {
+				throw new Error("Please specify an athlete ID from the table below.")
+			}
+			let foundAthlete = null
+			let storedData = this.allMyAthletes
+			for (const entryIndex in {...storedData}) {
+				let entry = storedData[entryIndex]
+				if (entry['id'] === targetId) {
+					foundAthlete = entry
+					break
+				}
+			}
+			return foundAthlete.calculateSpeed()
 
-	calculateSpeed(swim, run, bike) {
-		let swimSpeed = (this.distance.swim/swim).toFixed(2)
-		let runSpeed = (this.distance.run/run).toFixed(2)
-		let bikeSpeed = (this.distance.bike/bike).toFixed(2)
-		let result = this.calculateTotalSpeed([swimSpeed, runSpeed, bikeSpeed])
-		return result
-	}
+			} catch(error) {
+				console.error(error.message)
+				return 0
+			}
+		}
 
 	timeToSeconds(duration) {
 		let time = duration.split(':')
@@ -150,19 +144,26 @@ export default class Triathlon {
 	saveToLocalStorage(athlete) {
 		let key = athlete.id
 		localStorage.setItem(key, JSON.stringify(athlete))
+		this.incrementBadge()
     }
 
-	saveToStorage(data) {
-		this.saveToLocalStorage(data)
+	saveToStorage() {
+		this.allMyAthletes.forEach((athlete) => {
+			athlete["speed"] = athlete.calculateSpeed()
+			this.saveToLocalStorage(athlete)
+			this.saveToDatabase(athlete)
+		})
+
 		this.allMyAthletes = []
 	}
 	
     loadFromLocalStorage() {
+		this.incrementBadge()
 		let allMyAthletes = Object.keys(localStorage).map((key) => JSON.parse(localStorage.getItem(key)))
         return allMyAthletes
     }
 
-	calculateAvgDuration(storage, athleteCount) {
+	calculateAvgDuration(storage) {
 		let sum = {swim:0, run:0, bike:0}
 		let average = {swim:0, run:0, bike:0}
 		for (const entryIndex in {...storage}) {
@@ -171,24 +172,42 @@ export default class Triathlon {
 			sum.run += this.timeToSeconds(athlete.runTime)
 			sum.bike += this.timeToSeconds(athlete.bikeTime)
 		}
-		const divisor = athleteCount || 1
+		const divisor = this.athleteCount || 1
 		average.swim = (sum.swim / divisor).toFixed(2)
 		average.run = (sum.run / divisor).toFixed(2)
 		average.bike = (sum.bike / divisor).toFixed(2)
 
 		return average
 	}
+
+	async incrementBadge() {
+      if ("setAppBadge" in navigator && "clearAppBadge" in navigator) {
+		try {
+          await navigator.setAppBadge(this.athleteCount) // Set the new badge count
+        //   console.log("Badge count incremented to:", this.athleteCount)
+        } catch (error) {
+          console.error("Error updating badge count:", error)
+        }
+      } else {
+        console.warn("Badging API is not supported in this browser.")
+      }		
+	}
 	
 	//* FINDING BY ID
-	findAthlete(query) {
+	findAthlete(query, type="localStorage") {
+		this.incrementBadge()
 		let foundAthlete = null
-		let storedData = this.loadFromLocalStorage()
+		let storedData
+		if (type ==="localStorage") {
+			storedData = this.loadFromLocalStorage()
+		}
+
 		for (const entryIndex in {...storedData}) {
 			let entry = storedData[entryIndex]
-				if (entry['id'] === query) {
-					foundAthlete = entry
-				}
+			if (entry['id'] === query) {
+				foundAthlete = entry
 			}
+		}
 		return foundAthlete
 	}
 }

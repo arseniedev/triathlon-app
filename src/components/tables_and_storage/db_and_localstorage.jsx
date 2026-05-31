@@ -12,6 +12,8 @@ export default function StorageComponent({onLoad, onSave, onClear}) {
   const saveBtnHoverTxt = 'Save List To Local Storage & database.'
 
   const [entry, setEntry] = useState([])
+  const [output, setOutput] = useState("")
+  const [targetDB, setTargetDB] = useState("")
 
   const headers = [
     {id: 1,key: "primary-key", label: "Primary Key"},
@@ -29,17 +31,20 @@ export default function StorageComponent({onLoad, onSave, onClear}) {
     if (type !== 'database') {
       onLoad(type)
     } else {
-      onLoad((athletes, error) => {
-        if(error) {
-          console.error('Error:', error)
-        } else {
-          if(athletes.length > 0) {
-            setEntry(athletes)
-          } else {
-            alert('Empty Database.')
+      try {
+        onLoad((athletes, error) => {
+          if(!error) {
+            if(athletes.length > 0) {
+              setEntry(athletes)
+            }
           }
-        }
-      })
+        })
+      } catch (error) {
+        console.log(error instanceof TypeError)
+        console.log(error.message)
+        console.log(error.stack)
+        setOutput("ERROR:" + error.message.toString())
+      }
     }
   }
 
@@ -58,8 +63,12 @@ export default function StorageComponent({onLoad, onSave, onClear}) {
           <h2>Database</h2>
           <p>Edit history of the athlete data are listed here.</p>
           <div className="d-flex">
-            <button className="col-6" onClick={() => handleLoadStorage('database')}>Load DB</button>
-            <button className="col-6" id="reset-btn" onClick={() => handleClearStorage('database')}>Delete DB</button>
+          <input className="col-8" onChange={(event) => (setTargetDB(event.target.value))} placeholder="Enter the database name to confirm deletion."></input>
+          <button className="col-2" id="reset-btn" onClick={() => handleClearStorage(targetDB)}>Delete {targetDB}</button>
+          <button className="col-2" onClick={() => handleLoadStorage('database')}>Load DB</button>
+          </div>
+          <div>
+            <br/>{output}<br/>
           </div>
           <table className="table mt-3 mx-3">
             <thead>

@@ -4,9 +4,10 @@ the state and operations related to the calculator.
 */
 
 export default class TriathlonViewModel {
-  constructor(triathlon, timer) {
+  constructor(triathlon, timer, fileHandler) {
     this.triathlon = triathlon
     this.timer = timer
+    this.fileHandler = fileHandler
 
     this.timerState= false
     this.category = ["swimTime", "bikeTime", "runTime"]
@@ -16,7 +17,6 @@ export default class TriathlonViewModel {
 
     this.button = "Play"
     this.seconds = "00:00:00"
-    
 
     this.init = this.init.bind(this)
     this.clear = this.clear.bind(this)
@@ -28,6 +28,7 @@ export default class TriathlonViewModel {
     this.validate = this.validate.bind(this)
     this.process = this.process.bind(this)
     this.average = this.average.bind(this)
+    this.handleFile = this.handleFile.bind(this)
   }
 
   clickable() {
@@ -43,7 +44,6 @@ export default class TriathlonViewModel {
       isValid = this.triathlon.findAthlete(value) === null
       result[field] =  isValid ? 'Valid' : 'Please provide unique ID'
       this.allValid[field] = isValid
-      // return {prompt:result[field], readyToSave:this.clickable()}
     } else if (field ==='firstName') {
       isValid = /^[A-Za-z]+$/.test(value)
       result[field] =  isValid ? 'Valid' : 'Input must contain only letters, no special characters or numbers.'
@@ -127,10 +127,10 @@ export default class TriathlonViewModel {
     if (storage === "list") {
       collection = this.triathlon.allMyAthletes
       return collection
-
     }
     else if (storage === "localStorage") {
       collection = this.triathlon.loadFromLocalStorage()
+      this.triathlon.incrementBadge()
       return collection
     }
     else {
@@ -143,21 +143,22 @@ export default class TriathlonViewModel {
     let timers = this.container
     let output = this.triathlon.handleForm(form, timers)
     if (storage === 'localStorage') {
-      this.triathlon.allMyAthletes.forEach((athlete) => {
-      this.triathlon.saveToStorage(athlete)
-      })
+      this.triathlon.saveToStorage()
+      this.clear()
     } else if (storage === 'list') {
     this.triathlon.addAthlete(output)
     }
     form.reset()
-
     return output
   }
 
   average() {
     let storage = this.triathlon.loadFromLocalStorage()
-		let athleteCount = storage.length
-    return this.triathlon.calculateAvgDuration(storage, athleteCount)
+    return this.triathlon.calculateAvgDuration(storage)
+  }
+
+  handleFile(operation) {
+    this.fileHandler.call(operation)
   }
 
   process(data, action ="edit-athlete") {
@@ -165,13 +166,8 @@ export default class TriathlonViewModel {
       this.triathlon.deleteAthlete(data)
     } 
     else if (action === "calculate-speed") {
-      let athlete = this.triathlon.findAthlete(data)
-      if (athlete !== null) {
-        let swim = this.triathlon.timeToHours(athlete.swimTime)
-        let run = this.triathlon.timeToHours(athlete.bikeTime)
-        let bike = this.triathlon.timeToHours(athlete.runTime)
-        return this.triathlon.calculateSpeed(swim, run, bike)
-      }
+      return this.triathlon.getSpeed(data)
+      
     }  else if (action === "delete-database") {
         let databaseName = data
         this.triathlon.deleteDatabase(databaseName)
@@ -184,6 +180,7 @@ export default class TriathlonViewModel {
     var newData = {}
     if (typeof data === 'string') {
       newData['id'] = data
+      console.log(newData)
       this.triathlon.editAthlete(newData)
     } else {
       let button = data.id

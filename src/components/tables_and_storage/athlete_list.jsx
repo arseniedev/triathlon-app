@@ -11,7 +11,10 @@ export default function AthleteTable({onGet}) {
     'asc': up,
     'desc': down
   }
-  const [order, setOrder] = useState({ keyToSort: "id", direction: "asc", icon: iconPath["asc"]})
+  const [order, setOrder] = useState({
+    keyToSort: "id", direction: "asc",
+    icon: iconPath["asc"]
+  })
 
   const headers = [
     {id: 1,key: "id", label: "Athlete ID"},

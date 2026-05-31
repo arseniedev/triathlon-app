@@ -3,6 +3,7 @@
 
 import Triathlon from "./model/triathlon.js"
 import Stopwatch from "./model/stopwatch.js"
+import FileHandler from "./model/file.js"
 import TriathlonViewModel from "./viewmodel/triathlon_viewmodel.js"
 import TriathlonView from "./view/triathlon_view.jsx"
 import TriathlonDB from "./model/database.js"
@@ -10,8 +11,9 @@ import TriathlonDB from "./model/database.js"
 function App() {
   const db = new TriathlonDB('triathlonDB')
   const timer = new Stopwatch()
+  const fileHandler = new FileHandler()
   const triathlon = new Triathlon(db)
-  const viewModel = new TriathlonViewModel(triathlon,timer)
+  const viewModel = new TriathlonViewModel(triathlon,timer,fileHandler)
 
   return (
     <div className="row">

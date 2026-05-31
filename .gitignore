@@ -25,6 +25,7 @@ dist-ssr/
 .env.production.local
 
 # Editor directories and files
+.cursor/*
 .vscode/*
 !.vscode/extensions.json
 .idea/
@@ -50,3 +51,5 @@ Thumbs.db
 *.key
 *.crt
 *.der
+*.cer
+*.cnf

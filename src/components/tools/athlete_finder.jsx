@@ -31,19 +31,20 @@ export default function AthleteFinder({onSearch, onProcess}) {
     setClickable(false)
   }
 
-    return (
-      <div className="mt-4">
-          <div className="d-flex flex-column">
-            <h2>Athlete Finder</h2>
-            <p>Find an athlete stored in local storage.</p>
-            <input id="search-input" onChange={handleSearch} placeholder="Search Athlete by ID"/>
-            <div>{onSearch(query)}</div>
-          </div>
-          <div className="d-flex mt-2">
-            <button type="button" id="delete-athlete" className="w-100 mx-1" onClick={(event) => handleClick(query,event)} title = {deleteBtnHoverTxt} disabled={!clickable}>Delete</button>
-            <button type="button" id="calculate-speed" className="w-100 mx-1" onClick={(event) => handleClick(query,event)} title = {editBtnHoverTxt} disabled={!clickable}>Calculate</button>
+  return (
+    <div className="mt-4 d-flex flex-column">
+          <h2>Athlete Finder</h2>
+          <div className="m-0 mb-2">{onSearch(query)}</div>
+          <input id="search-input" className="my-2" onChange={handleSearch} placeholder="Search Athlete by ID"/>
+          <br/>
+          <p>Find an athlete stored in local storage.</p>
+          <div className="d-flex">
+            <button type="button"id="delete-athlete" className="w-100 mx-1" onClick={(event) => handleClick(query,event)} title = {deleteBtnHoverTxt} disabled={!clickable}>Delete</button>
             <button type="button" id="edit-athlete" className="w-100 mx-1" onClick={(event) => handleClick(query,event)} title = {calculateBtnHoverTxt} disabled={!clickable}>Edit</button>
           </div>
-      </div>
-    )
-  }
+          <br/>
+          <p>Get speed on cached entry.</p>
+          <button type="button" id="calculate-speed" className="w-100 mx-1" onClick={(event) => handleClick(query,event)} title = {editBtnHoverTxt}>Calculate</button>
+    </div>
+  )
+}

@@ -9,6 +9,7 @@ import AthleteTable from "../components/tables_and_storage/athlete_list"
 import AthleteForm from "../components/forms/add_athlete_form"
 import EditForm from "../components/forms/edit_athlete_form"
 import StorageComponent from "../components/tables_and_storage/db_and_localstorage"
+// import FileHandlerComponent from "../components/tables_and_storage/file_handler"
 
 // https://legacy.reactjs.org/docs/typechecking-with-proptypes.html
 TriathlonView.propTypes = {
@@ -21,10 +22,11 @@ TriathlonView.propTypes = {
     onCheck: PropTypes.func,
     onProcess: PropTypes.func,
     onAverage: PropTypes.func,
+    // onHandleFile: PropTypes.func,
 }
 
 // View is responsible for rendering the UI and handling user interactions.
-function TriathlonView({onInit, onClear, onCache, onAdd, onDisplay, onSearch, onCheck, onProcess, onAverage}) {
+function TriathlonView({onInit, onClear, onCache, onAdd, onDisplay, onSearch, onCheck, onProcess, onAverage}) { //onHandleFile
     const [elapsed, setElapsed] = useState('00:00:00')
     const [initButton, setInitButton] = useState('Play')
     const [cachedTimes, setCachedTimes] = useState([])
@@ -89,21 +91,22 @@ function TriathlonView({onInit, onClear, onCache, onAdd, onDisplay, onSearch, on
   
     const handleSubmit = (storage = "list") => {
         onAdd(storage)
-        handleClear() //equivalent:setCachedTimes([]);setElapsed('00:00:00');setForm(false);setClickable(true)
+        handleClear()
         setEntry(onDisplay(storage))
 
       setAverage(onAverage())
     }
   
-    const handleResetStorage = (type) => {
-      if (type === 'localStorage') {
+    const handleResetStorage = (storage) => {
+      if (storage === 'localStorage') {
         localStorage.clear()
         setTimeout(() => {
           alert('Local storage has been cleared.')
         }, 1000)
       } else {
-        let action = 'delete-' + type
-        handleAction('triathlonDB', action)
+        let dbName = storage
+        let action = 'delete-database'
+        handleAction(dbName, action)
         setTimeout(() => {
           alert('Database is now empty.')
         }, 1000)
@@ -187,12 +190,17 @@ function TriathlonView({onInit, onClear, onCache, onAdd, onDisplay, onSearch, on
             />
           </div>          
         </div>
-        <div>
-          <StorageComponent
-            onLoad={handleLoad}
-            onSave={() => handleSubmit('localStorage')}
-            onClear={handleResetStorage}
-          />
+        <div className="d-flex flex-column">
+          <div>
+
+          </div>
+          <div>
+            <StorageComponent
+              onLoad={handleLoad}
+              onSave={() => handleSubmit('localStorage')}
+              onClear={handleResetStorage}
+            />
+          </div>
         </div>
       </div>
     )
