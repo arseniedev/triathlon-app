@@ -1,0 +1,285 @@
+import { TrainingDrill } from '../../src/drill.js';
+import { Training } from '../../src/training.js';
+import { TEST_TEXT } from '../constants/testConstants';
+
+
+describe('Training model', () => {
+	let training;
+
+	beforeEach(() => {
+		localStorage.clear();
+		training = new Training(TEST_TEXT.trainingId, TEST_TEXT.trainingLocation, new Date());
+	});
+
+	test('saves a drill payload by training id', () => {
+		const drill = { time: '09:45', swimTime: 21.3, runTime: 189.54, bikeTime: 2323.09 };
+		training.saveToStorage(drill);
+		expect(localStorage.length).toEqual(1);
+		expect(training.loadLocalStorage()).toEqual(drill);
+	});
+
+	test('adds and finds drills', () => {
+		training.addDrill(new Date(2024, 4, 1, 9, 45), 21.3, 189.54, 2323.09);
+		const found = training.findTrainingDrill('09:45');
+		expect(found).not.toBeNull();
+		expect(training.drillCount).toEqual(1);
+	});
+});
+
+
+describe('Training logs', () => {
+	let theTraining;
+
+	beforeEach(() => {
+		theTraining = new Training();
+	});
+
+	describe('An empty training log', () => {
+		test('should have a .location property', () => {
+			expect(
+				Object.hasOwn(theTraining, 'location'),
+			).toBeTruthy();
+		});
+
+		test('should have a drill count of 0', () => {
+			const count = theTraining.drillCount;
+			expect(count).toBe(0);
+		});
+
+		test('should have a .allDrillsLog property', () => {
+			expect(
+				Object.hasOwn(theTraining, 'allDrillsLog'),
+			).toBeTruthy();
+		});
+
+		test('should have an array for the .allDrillsLog ', () => {
+			expect(Array.isArray(theTraining.allDrillsLog)).toBeTruthy();
+		});
+
+		test('should have nothing in the allDrillsLog array', () => {
+			const arraySize = theTraining.allDrillsLog.length;
+			expect(arraySize).toBe(0);
+		});
+	});
+
+	describe('an empty training', () => {
+		beforeEach(() => {
+			const testDate = new Date('March 17, 2024');
+			const testLocation = 'Everdeen Sport Centre';
+			theTraining = new Training(testDate, testLocation);
+		});
+
+		test('should match expected date format', () => { // Check if formatDate is functional
+			const expected = 'March 17, 2024';
+			const actual = theTraining.formatDate(); // "March 17, 2024"
+			expect(actual).toBe(expected);
+		});
+
+		test('should have 0 log count', () => { // Check if formatDate is functional
+			const expected = 0;
+			const actual = theTraining.drillCount;
+			expect(actual).toBe(expected);
+		});
+
+		test('should return a string saying it has 0 logged training drills', () => {
+			const expected = '[March 17, 2024 - Everdeen Sport Centre]\nThere\'s 0 drill(s) recorded on this session.';
+			const actual = theTraining.toString();
+			expect(actual).toBe(expected);
+		});
+	});
+	describe('a training with 1 drill in it', () => {
+		beforeEach(() => {
+			theTraining.addDrill('12:30', 33, 76, 234);
+		});
+
+		test('should have a log count of 1', () => {
+			const count = theTraining.drillCount;
+			expect(count).toBe(1);
+		});
+
+		test('should have 1 entry in the allDrillsLog array', () => {
+			const arraySize = theTraining.allDrillsLog.length;
+			expect(arraySize).toBe(1);
+		});
+
+		test('should have a drill logged in the allDrillsLog array', () => {
+			const aTrainingDrill = theTraining.allDrillsLog[0];
+			expect(aTrainingDrill instanceof TrainingDrill).toBeTruthy();
+		});
+
+		describe('a training drill #12, has a correct duration for swimming(33), running(76), and cycling(234)', () => {
+			let aTrainingDrill;
+
+			beforeAll(() => {
+				aTrainingDrill = theTraining.allDrillsLog[0];
+			});
+
+			test('should contain correct swimTime, runTime, & bikeTime values', () => {
+				expect(aTrainingDrill.swimTime).toBe(33);
+				expect(aTrainingDrill.runTime).toBe(76);
+				expect(aTrainingDrill.bikeTime).toBe(234);
+			});
+		});
+	});
+
+	describe('a training with 3 drills in it', () => {
+		beforeEach(() => {
+			theTraining.addDrill('19:10', 35.722, 339.5, 4760.31); // Fail  )
+			theTraining.addDrill('08:30', 21.56, 236.17, 2154.4); // Pass pass pass)
+			theTraining.addDrill('08:30', 45.9, 593.5, 2120.2); // Fail fail pass = fail)
+			theTraining.addDrill('12:02', 22.112, 271.97, 2140.6); // Pass fail pass = pass)
+		});
+
+		test('should have a log count of 3', () => {
+			const count = theTraining.drillCount;
+			expect(count).toBe(4);
+		});
+
+		test('should have three entries in the allDrillsLog array', () => {
+			const arraySize = theTraining.allDrillsLog.length;
+			expect(arraySize).toBe(4);
+		});
+		test('should have working sorter', () => {
+			theTraining.sortDrills();
+			const actual = theTraining.allDrillsLog[0].time;
+			const expected = '08:30';
+			expect(actual).toBe(expected);
+		});
+
+		test('calculation across many parts', () => {
+			const actual = theTraining.calculateAvgSpeed();
+			const expected = 33.03;
+			expect(actual).toBe(expected);
+		});
+	});
+
+	describe('a training with filters and search', () => {
+		beforeEach(() => {
+			theTraining.addDrill('19:10', 35.722, 339.5, 4760.31); // Fail
+			theTraining.addDrill('15:15', 21.56, 236.17, 2154.4); // Pass pass pass
+			theTraining.addDrill('08:30', 45.9, 593.5, 2120.2); // Fail fail pass = fail
+			theTraining.addDrill('12:02', 22.112, 271.97, 2140.6); // Pass fail pass = pass
+		});
+
+		test('should filter only speed above 37.16', () => { // 37.16
+			const result = theTraining.getGoalReach();
+			expect(result["Time: 12:02"]).toBe("39.26kph");
+			expect(result["Time: 15:15"]).toBe("39.62kph");
+		});
+
+		test('should return "non-existent drill" if targetTime is not found', () => {
+			const targetTime = '9:00';
+			const aTrainingDrill = theTraining.findTrainingDrill(targetTime);
+			const actual = aTrainingDrill;
+			const expected = null;
+			expect(actual).toBe(expected);
+		});
+
+		test('should find the existing drill with the specified targetTime 12:02', () => {
+			const targetTime = '12:02';
+			const aTrainingDrill = theTraining.findTrainingDrill(targetTime);
+			const actual = aTrainingDrill;
+			expect(aTrainingDrill.swimTime).toBe(22.112);
+			expect(aTrainingDrill.runTime).toBe(271.97);
+			expect(aTrainingDrill.bikeTime).toBe(2140.6);
+		});
+
+		test('getting all drills successfully', () => {
+			const receivedAllDrills = theTraining.getAllDrills();
+			let expected = "[April 3, 2024 - Unknown]\nThere's 4 drill(s) recorded on this session."
+			expected += "\n[Drill Start Time: 19:10]\nSwimming - 35.72 seconds\nRunning - 339.50 seconds\nCycling - 4760.31 seconds"
+			expected += "\n[Drill Start Time: 15:15]\nSwimming - 21.56 seconds\nRunning - 236.17 seconds\nCycling - 2154.40 seconds"
+			expected += "\n[Drill Start Time: 08:30]\nSwimming - 45.90 seconds\nRunning - 593.50 seconds\nCycling - 2120.20 seconds"
+			expected += "\n[Drill Start Time: 12:02]\nSwimming - 22.11 seconds\nRunning - 271.97 seconds\nCycling - 2140.60 seconds"
+			expect(receivedAllDrills).toBe(expected);
+		});
+	});
+
+	describe('a training with shrinking ft', () => {
+		beforeEach(() => {
+			theTraining.addDrill('08:30', 14.32, 95.03, 34.3);
+			theTraining.addDrill('19:10', 16.85, 110.2, 32.17);
+			theTraining.addDrill('12:02', 22.1, 113.111, 29.3);
+		});
+
+		test('non-existent target item, unsuccessful', () => {
+			const targetTime = '21:11';
+			const actual = theTraining.removeDrill(targetTime);
+			const expected = null;
+			expect(actual).toBe(expected);
+		});
+
+		test('non-existent target item, unsuccessful, matches unchanged array length', () => {
+			const targetTime = '21:11';
+			theTraining.removeDrill(targetTime);
+			const actual = theTraining.allDrillsLog.length;
+			const expected = 3;
+			expect(actual).toBe(expected);
+		});
+
+		test('successful removal of existent target item, matches items returned', () => {
+			const targetTime = '19:10';
+			theTraining.removeDrill(targetTime);
+			const actual = theTraining.allDrillsLog.map(drill => drill.time);
+			const expected = ['08:30', '12:02'];
+			expect(actual).toEqual(expected);
+		});
+
+		test('successful removal of existent target item, matches array length', () => {
+			const targetTime = '19:10';
+			const actual = theTraining.removeDrill(targetTime).length;
+			const expected = 2;
+			expect(actual).toBe(expected);
+		});
+
+		test('successful removal of existent target item, matches drill count', () => {
+			const targetTime = '19:10';
+			theTraining.removeDrill(targetTime);
+			const actual = theTraining.drillCount;
+			const expected = 2;
+			expect(actual).toBe(expected);
+		});
+	});
+
+	describe('Updating values of a drill', () => {
+		beforeEach(() => {
+			const mockList = [{
+				bikeTime: 0, runTime: 0, swimTime: 0, time: '19:10',
+			}];
+			theTraining.allDrillsLog = mockList;
+		});
+
+		test('update swimTime value', () => {
+			const testTime = '19:10';
+			const testKey = 'swimTime';
+			const testValueReplacement = 23.356;
+			const actual = theTraining.updateDrill(testTime, testKey, testValueReplacement);
+			const expected = [{
+				bikeTime: 0, runTime: 0, swimTime: 23.36, time: '19:10',
+			}];
+			expect(actual).toEqual(expected);
+		});
+
+		test('update runTime value', () => {
+			const testTime = '19:10';
+			const testKey = 'runTime';
+			const testValueReplacement = 226.11;
+			const actual = theTraining.updateDrill(testTime, testKey, testValueReplacement);
+			const expected = [{
+				bikeTime: 0, runTime: 226.11, swimTime: 0, time: '19:10',
+			}];
+			expect(actual).toEqual(expected);
+		});
+
+		test('update bikeTime value', () => {
+			const testTime = '19:10';
+			const testKey = 'bikeTime';
+			const testValueReplacement = 2452.28;
+			const actual = theTraining.updateDrill(testTime, testKey, testValueReplacement);
+			const expected = [{
+				bikeTime: 2452.28, runTime: 0, swimTime: 0, time: '19:10',
+			}];
+			expect(actual).toEqual(expected);
+		});
+	});
+});
